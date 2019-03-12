@@ -143,6 +143,15 @@ are indicated by the string `"\n"`.
 > {: .solution}
 {: .challenge}
 
+> ## Why does the output in the previous exercise contain blank lines?
+> The input file does not contain blank lines, so where are they coming from?
+>
+> > ## Solution
+> > `print` is adding a second newline character to the string read from the
+> > file, which already contains a newline character.
+> {: .solution}
+{: .challenge }
+
 For reading lines from a file, you can iterate over the file object. This is memory efficient, fast, and leads to simple code:
 ~~~
 for line in f:
