@@ -1,5 +1,5 @@
 ---
-title: "Python Syntax"
+title: "Writing classes: object-oriented Python"
 teaching: 0
 exercises: 0
 questions:
@@ -10,12 +10,6 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-- Indentation Q-Does this make sense before conditionals?
-- White Space
-- Code blocks
-- Comments
-- Line continuation
-- Brackets
 
 {% include links.md %}
 
