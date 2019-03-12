@@ -47,3 +47,4 @@ this may require some small adaptations to the exercises.
 [python2]: https://en.wikipedia.org/wiki/History_of_Python#Version_2
 [python3]: https://en.wikipedia.org/wiki/History_of_Python#Version_3
 [python_ide]: https://wiki.python.org/moin/IntegratedDevelopmentEnvironments
+[intro-to-python]: https://csiro-data-school.github.io/python/
