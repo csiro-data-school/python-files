@@ -1,7 +1,7 @@
 ---
 title: "Getting Help When You Need It: Working with Documentation"
-teaching:
-exercises:
+teaching: 5
+exercises: 5
 questions:
 - "FIXME"
 objectives:
@@ -24,37 +24,51 @@ object, including variables and literal values.
 
 > ## Exploring the `type()` Function
 > In an interactive Python console, or a Jupyter Notebook, execute the following
-> code snippets. Is the output what you expected?
+> code snippets. What does the output mean?
 > ~~~
+> # 1
 > a = 7
 > type(a)
 >
+> # 2
 > type(7)
 >
+> # 3
+> type(int)
+>
+> # 4
 > type("seven")
 >
+> # 5
 > def a_function():
 >     pass
->
 > type(a_function)
 >
+> # 6
 > type(print)
->
 > type(if)
 > ~~~
 > {: .language-python}
 > > ## Solution
-> > Perhaps the only unexpected outcome is the syntax error for `type(if)`. Both
-> > `print` and `if` are built in to the language, so why is one an error but
-> > not the other? The answer is that `print` is a function and so has a type,
-> > while `if` is a language keyword. Keywords are parsed by the language but do
-> > not typically result in a typed runtime object.
+> > 1. `a` is a variable of type `int`
+> > 2. `7` is a literal of type `int`
+> > 3. `int` represents a class, and has type `type`. If you define your own
+> >    classes, they will also return "<class 'type'>". Note that `type(int)`
+> >    does not return `int` since the code is asking for the type of the class
+> >    `int` itself. `int` is a class that defines the integers, integers will
+> >    have type `int`, but `int` itself is a type.
+> > 4. '"seven"' is a string literal. Strings in Python have type `str`.
+> > 5. This defines a function called `a_function`. The function does nothing,
+> >    but that doesn't alter the fact that it is a function.
+> > 6. Both `print` and `if` are built in to the language, so why is one line an
+> >    error but not the other? The answer is that `print` is a function and so
+> >    has a type, while `if` is a language keyword. Keywords are parsed by the
+> >    language but do not typically result in a typed runtime object.
 > {: .solution}
 {: .challenge}
 
 
 
-- type()
 - help()
 - methods
 - Intro to doc String
