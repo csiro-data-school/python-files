@@ -3,7 +3,7 @@ title: "Getting Help When You Need It: Working with Documentation"
 teaching: 5
 exercises: 5
 questions:
-- "FIXME"
+- "What does the `type()` function do?"
 objectives:
 - "FIXME"
 keypoints:
@@ -15,8 +15,8 @@ keypoints:
 Python is a *duck-typed* language. Sometimes it isn't necessary to ensure that
 variables are a specific type, it can be sufficient to simply try to use
 variables in the required way. They will either *walk like a duck*, and the
-operation will work, or an exception will be raised (FIXME-link to exceptions
-episode).
+operation will work, or an exception will be raised (see the [exceptions
+episode]({{ page.root }}/05-exceptions/)).
 
 However, sometimes it is helpful to check on the exact type of a variable. This
 can be done with the built-in `type` function. `type` will accept any Python
