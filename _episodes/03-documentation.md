@@ -3,12 +3,70 @@ title: "Getting Help When You Need It: Working with Documentation"
 teaching: 5
 exercises: 5
 questions:
+- "How do I navigate the Python documentation?"
+- "How can the `help()` function be used?"
 - "What does the `type()` function do?"
 objectives:
 - "FIXME"
 keypoints:
 - "FIXME"
 ---
+
+## The Python Documentation
+
+The official documentation is a good place to start for any language. [The
+official Python documentation][python-documentation] is generally well
+organised and described, so this episode only highlights a few aspects.
+
+The first thing to note is the the url
+[https://docs.python.org/](https://docs.python.org/) automatically redirects you
+to the most recent stable release of Python. If you require documentation for
+a specific version, it can be selected by the drop-down box at the top left of
+the page.
+
+There are several ways to check the version of Python you are using, including:
+
+- From a command-line, the commands `python --version` and `python3 --version`
+  will report the full version.
+  - Note that `python --version` may report that it is either Python 2 or 3. On
+    systems where `python` is Python 2, it is common for `python3` to also be
+    present.
+- When running an interactive Python interpreter, the version is printed when
+  the interpreter starts.
+- The version can be checked programmatically:
+  ~~~
+  import platform
+  print(platform.python_version())
+  ~~~
+  {: .language-python}
+
+> ## Check your version of Python
+> Using one of the methods listed above, check the version of Python you are
+> using for this course.
+> 
+> Switch the online documentation to the same version.
+{: .challenge}
+
+> ## Find and use the `platform` online documentation
+> We used the `platform.python_version()` function to retrieve the version
+> string for the current Python interpreter. But the `platform` module can tell
+> us a lot more information about the version of Python in use, as well as the
+> underlying operating system. 
+> 
+> Find the documentation for the `platform` module in the online documentation.
+> Which function can be used to identify the type of operating system that is
+> running Python?
+> > ## Solution
+> > The platform documentation is in the [Library Reference
+> > section][python-library]. It can be found by browsing, using the search bar
+> > at the top-right of the page, or by using your browser's search in a page
+> > function.
+> > 
+> > The operating system type is returned (if it can be determined) by the
+> > `platform.system()` function:
+> > [https://docs.python.org/3/library/platform.html#platform.system][platform-system]
+> {: .solution}
+{: .challenge}
 
 ## Checking on Types: the `type()` function
 
@@ -77,3 +135,6 @@ object, including variables and literal values.
 
 {% include links.md %}
 
+[python-documentation]: https://docs.python.org/3/
+[python-library]: https://docs.python.org/3/library/index.html
+[platform-system]: https://docs.python.org/3/library/platform.html#platform.system
