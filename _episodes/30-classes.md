@@ -1,5 +1,5 @@
 ---
-title: "Assignment"
+title: "Writing classes: object-oriented Python"
 teaching: 0
 exercises: 0
 questions:
@@ -10,13 +10,6 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-- Assigning 42 to x
-- Assigning 42 to y
-- Assigning x to z
-- print(x)
-- print(y)
-- print(z)
-- assert x == y
 
 {% include links.md %}
 
