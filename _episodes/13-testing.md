@@ -20,7 +20,7 @@ keypoints:
 - Equivalence classes
 - Reference test
 - Doc test
-- Static Analysis
+- Static Analysis (pylint, ...)
 
 ## Introduction
 See Notes
@@ -80,6 +80,7 @@ multiplication operation, an exception should be thrown with the message: too fe
 * May not want Python Testing Resources since it is on Confluence; perhaps just add links from there here?
 * Sub-section with instructions for installing pytest, hypothesis?
 * Instructions re: how to run a UT the first time +/- command-line options
+* Look again at the string calculator/TDD notebooks 
 
 {% include links.md %}
 
