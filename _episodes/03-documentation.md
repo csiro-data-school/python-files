@@ -1,13 +1,17 @@
 ---
 title: "Getting Help When You Need It: Working with Documentation"
-teaching: 5
-exercises: 5
+teaching: 10
+exercises: 15
 questions:
 - "How do I navigate the Python documentation?"
 - "How can the `help()` function be used?"
 - "What does the `type()` function do?"
 objectives:
-- "FIXME"
+- "Understand how to find and navigate the online Python documentation."
+- "Understand how to select the documentation for your specific Python version."
+- "Understand the relative merits of the `help()` function vs using the online
+  help."
+- "Know how to use the `type()` function to query the type of a Python object."
 keypoints:
 - "FIXME"
 ---
@@ -44,7 +48,7 @@ There are several ways to check the version of Python you are using, including:
 > Using one of the methods listed above, check the version of Python you are
 > using for this course.
 > 
-> Switch the online documentation to the same version.
+> Switch to the online documentation for your version.
 {: .challenge}
 
 > ## Find and use the `platform` online documentation
@@ -67,6 +71,62 @@ There are several ways to check the version of Python you are using, including:
 > > [https://docs.python.org/3/library/platform.html#platform.system][platform-system]
 > {: .solution}
 {: .challenge}
+
+## Get help inside Python: the `help()` function
+
+Knowing how to find and navigate the online documentation is vital, but there
+are times when looking something up inside an interactive Python session is also
+useful. The built-in `help()` function looks up the documentation for Python
+objects. For example:
+~~~
+>>> help(print)
+Help on built-in function print in module builtins:
+
+print(...)
+    print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+    
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.
+~~~
+{: .language-python}
+
+> ## Comparing documentation
+> 
+> In Python, the function for opening a file is `open()`. In an interactive
+> Python interpreter, use `help()` to display help for `open`.
+> 
+> Now look at [the online documentation][python-open] for `open`. Which provides the most
+> help? Is the content the same or different? Which is easier to use? When might
+> you use one or the other?
+> > ## Solution
+> > The code to access help on `open` is:
+> > ~~~
+> > help(open)
+> > ~~~
+> > {: .language-python}
+> > 
+> > As to whether `help()` is more or less helpful than the online
+> > documentation, there is no right answer. But is good to have options.
+> {: .solution}
+{: .challenge}
+
+> ## Jupyter Notebook Specific Help
+> In a Jupyter Notebook, there is another option for the `help()` function.
+> Instead of calling `help()`, simply prepend a Python object with `?` to
+> display HTML formatted help in a separate panel. If you are using or have
+> access to a Jupyter Notebook, compare the output from the following two
+> statements:
+> ~~~
+> help(print)
+> 
+> ?print
+> ~~~
+> {: .source}
+{: .callout}
 
 ## Checking on Types: the `type()` function
 
@@ -126,15 +186,9 @@ object, including variables and literal values.
 {: .challenge}
 
 
-
-- help()
-- methods
-- Intro to doc String
-- ?help Jupyter
-- links to docs online
-
 {% include links.md %}
 
 [python-documentation]: https://docs.python.org/3/
 [python-library]: https://docs.python.org/3/library/index.html
 [platform-system]: https://docs.python.org/3/library/platform.html#platform.system
+[python-open]: https://docs.python.org/3/library/functions.html#open
