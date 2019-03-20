@@ -103,7 +103,7 @@ def word_count(text, characters_to_ignore=",.?", ignore_case=True):
                reverse=True))
 
 if __name__ == "__main__":
-    counts = word_count(read_file("text.txt"))
+    counts = word_count(read_file("sample-text.txt"))
     for word, count in counts.items():
         print("{0}: {1}".format(word, count))
 ~~~
@@ -122,8 +122,26 @@ if __name__ == "__main__":
 > {: .solution}
 {: .challenge}
 
+> ## Before proceeding
+>
+> Download the [wordcount1.py][wordcount1] and [sample-text.txt][sample-text]
+> files now, as they will be used for the rest of the episode.
+{: .callout}
+
+## What command-line arguments do we need?
+
+The previous exercise identified some limitations of the word count program. Now
+we will improve the program by adding command-line arguments with the following
+goals:
+- The required first argument should specify the input file name.
+- The optional second argument specifies a string of punctuation characters
+  that should be ignored in the input text.
+- If no arguments are supplied, the program should print a usage message.
+
 {% include links.md %}
 
 [python-sorted]: https://docs.python.org/3/library/functions.html#sorted
 [python-counter]: https://docs.python.org/3/library/collections.html#counter-objects
 [python-ordereddict]: https://docs.python.org/3/library/collections.html#ordereddict-objects
+[wordcount1]: {{page.root}}/files/wordcount1.py
+[sample-text]: {{page.root}}/files/sample-text.txt
