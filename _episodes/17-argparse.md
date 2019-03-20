@@ -133,10 +133,88 @@ if __name__ == "__main__":
 The previous exercise identified some limitations of the word count program. Now
 we will improve the program by adding command-line arguments with the following
 goals:
-- The required first argument should specify the input file name.
+- The first argument should specify the input file name.
 - The optional second argument specifies a string of punctuation characters
   that should be ignored in the input text.
 - If no arguments are supplied, the program should print a usage message.
+
+## Method 1: `sys.argv`
+
+The oldest method that Python provides for passing arguments to your programs is
+[`sys.argv`][python-sys-argv]. It does nothing more than return a list
+containing the whitespace delimited strings from the command-line that executed
+your program. For example, the command "python3 my_file.py option1 option2"
+would return `["my_file.py", "option1", "option2"]` from `sys.argv`.
+If you have programmed in C, then this will be familiar, as `sys.argv` was
+modelled on the C approach.
+
+> ## Echo command-line arguments
+> Write a short program that uses `sys.argv` to echo the command-line arguments
+> back to the user. Each argument should print on a separate line along with the 
+> argument index.
+> 
+> Once you have a working program, spend a few minutes exploring different
+> arguments and their effect.
+> > ## Solution
+> > ~~~
+> > import sys
+> > for index, arg in enumerate(sys.argv):
+> >     print("{0}: {1}".format(index, arg))
+> > ~~~
+> > {: .language-python}
+> > This is also provided as [argv-echo.py][argv-echo].
+> {: .solution}
+{: .challenge}
+
+The first value in the list is always the name of your script, and so it should
+be ignored in "wordcount2.py".
+
+> ## Write wordcount2.py
+>
+> Your challenge is to modify wordcount1.py to use `sys.argv` to implement these
+> features:
+> - The first argument should specify the input file name.
+> - The optional second argument specifies a string of punctuation characters
+>   that should be ignored in the input text.
+> - If no arguments are supplied, the program should print a usage message.
+>
+> > ## Solution
+> > FIXME
+> {: .solution}
+{: .challenge}
+
+## Shortcomings of `sys.argv`
+- For complex programs, you can end up do a lot of low-level work.
+- Tends to produce inflexible interfaces. 
+- You just get strings. Validation for anything else like ints and files
+  requires extra work.
+- Common features of modern CLIs are tedious to implement:
+    - optional arguments.
+    - standardised help text.
+    - short and long form arguments (eg: `-f` and `--file`).
+
+## Method 2: `argparse`
+
+FIXME: brief description
+FIXME: Should I spoon feed the exercise and solution? Provide a partial
+implementation of wordcount3.py and get users to complete/fix it?
+
+> ## Write wordcount3.py
+>
+> Your challenge is to modify wordcount2.py to use `argparse` to implement these
+> features:
+> - The input file name is required, and can be specified with either short-form
+>   (`-f`) or long-form arguments (`--file`).
+> - An optional argument (`-p`, `--punctuation`) specifies the punctuation
+>   characters to be ignored. It should have a default value of `".,?"`.
+> - If no arguments are supplied, the program should print a usage message. The
+>   usage message should describe the program purpose, the arguments (including
+>   short and long-form) and whether a value is required or optional.
+>
+> > ## Solution
+> > FIXME
+> {: .solution}
+{: .challenge}
 
 {% include links.md %}
 
@@ -144,4 +222,6 @@ goals:
 [python-counter]: https://docs.python.org/3/library/collections.html#counter-objects
 [python-ordereddict]: https://docs.python.org/3/library/collections.html#ordereddict-objects
 [wordcount1]: {{page.root}}/files/wordcount1.py
+[argv-echo]: {{page.root}}/files/arg-echo.py
 [sample-text]: {{page.root}}/files/sample-text.txt
+[python-sys-argv]: https://docs.python.org/3/library/sys.html#sys.argv
