@@ -287,20 +287,26 @@ f.close()
 > using the string `\n`.
 {: .callout}
 
-## Context Managers
+## File Opening Recipe: Context Managers
 
-The safest way to open files is to use the [`with`][with-statement] statement.
-This causes your file to be automatically closed as soon as program
-execution leaves the scope of the `with` statement. For example:
+It is 'best practice' to always open files using the [`with`][with-statement] statement.
+
+`with` automatically closes your file as soon as your code is finished with it. Just like 
+the `for` and `if` statements we have already encountered, `with` ends with a colon `:` 
+character, and all the code that belongs to it is indented. For example:
+
 ~~~
 with open("a_file.txt", "w") as f:
     for line in f:
         print(line)
+        
+print(f.closed)
 ~~~
 {: .language-python}
 
-In addition being simpler, this approach is also safer. The file will
-always be closed, even when unexpected exceptions or other errors occur.
+In addition to being simpler, this approach is also safer. The file will
+always be closed when the indented code block is finished,
+even when unexpected exceptions or other errors occur.
 
 This leads us to a robust and useful pattern for sequentially processing every
 line in a text file:
@@ -312,7 +318,7 @@ with open("a_file.txt", "w") as f:
 {: .language-python}
 
 ## Putting it all together
-> ## Reading and writing different files at the same time
+> ## Reading and writing files at the same time
 > In this exercise, write a Python program to read lines of text from
 > `a_few_lines_of_text.txt`. For each line, write the line number followed by `": "`
 > and then the input text to a separate file called "numbered_lines_of_text.txt".
@@ -322,11 +328,15 @@ with open("a_file.txt", "w") as f:
 >
 > Your program should close both files when finished, including after any errors
 > are encountered.
+> 
+> Hint: `with` can be used to safetly open multiple files at once, e.g.
+> `with open("a_file") as file_one, open("another_file) as file_two:` ...
+>
 > > ## Solution
 > > ~~~
-> > with open("../data/a_few_lines_of_text.txt") as fin, open("numbered_lines_of_text.txt", "w") as fout:
-> >     for count, line in enumerate(fin):
-> >         fout.write("{0}: {1}".format(count, line))
+> > with open("../data/a_few_lines_of_text.txt") as f_in, open("numbered_lines_of_text.txt", "w") as f_out:
+> >     for count, line in enumerate(f_in):
+> >         f_out.write(count + ': ' + line + '\n'))
 > > ~~~
 > > {: .language-python}
 > {: .solution}
