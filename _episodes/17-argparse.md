@@ -250,7 +250,26 @@ be ignored in "wordcount2.py".
 
 ## Method 2: `argparse`
 
-FIXME: brief description
+In addition to `sys.argv`, the Python Standard Library provides another method
+for managing command-line arguments: `argparse`. It is not my goal to reproduce
+the [argparse documentation][argparse] here, but to summarise, `argparse`
+provides a consistent approach to:
+
+- Positional arguments (specified by position in the argument list).
+- Optional arguments with default values.
+- Named arguments (either optional or required), with both long and short
+  variations.
+- Validation.
+- Standardised help and usage messages.
+
+The simplest example ([argparse1.py][argparse1]) shows how to initialise `argparse` in your code:
+~~~
+import argparse
+parser = argparse.ArgumentParser()
+parser.parse_args()
+~~~
+{: .language-python}
+
 FIXME: Should I spoon feed the exercise and solution? Provide a partial
 implementation of wordcount3.py and get users to complete/fix it?
 
@@ -281,3 +300,5 @@ implementation of wordcount3.py and get users to complete/fix it?
 [argv-echo]: {{page.root}}/files/argv-echo.py
 [sample-text]: {{page.root}}/files/sample-text.txt
 [python-sys-argv]: https://docs.python.org/3/library/sys.html#sys.argv
+[argparse]: https://docs.python.org/3/library/argparse.html
+[argparse1]: {{page.root}}/files/argparse1.py
