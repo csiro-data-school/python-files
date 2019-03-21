@@ -1,20 +1,25 @@
 ---
 title: "Getting arguments from the command-line"
-teaching: 0
-exercises: 0
+teaching: 15
+exercises: 25
 questions:
 - "Why are command-line arguments useful?"
 objectives:
+- "Gain experience reading and modifying code written by someone else."
 - "Be able to write simple command-line arguments using `sys.argv`."
 - "Write more complex command-line arguments with `argparse`."
 - "Become more comfortable with text file processing."
 keypoints:
 - "Using command-line arguments can make your programs easier to use and reuse."
+- "`sys.argv` is the oldest and simplest method for reading command-line
+  arguments in Python. It just returns a list of strings."
+- "The simplicity of `sys.argv` brings limitations, and may lead to more complex
+  code."
+
 ---
 
 # TODO
 
-- sys.argv
 - argparse
   - define args
   - arg types
@@ -124,7 +129,7 @@ if __name__ == "__main__":
 > > - The program does not allow the user to override the ignored punctuation.
 > > - The `ignore_case` argument cannot be modified when calling the program.
 > {: .solution}
-{: .challenge}
+{: .discussion}
 
 > ## Before proceeding
 >
@@ -187,20 +192,61 @@ be ignored in "wordcount2.py".
 >
 > > ## Solution
 > >
-> > FIXME
+> > Without reproducing the whole program, here is the important new code.
+> > [Download the solution][wordcount2] if required. Note that my usage message
+> > is not great. Writing good usage messages is hard.
+> >
+> > ~~~
+> > ...
+> >
+> > if __name__ == "__main__":
+> >
+> >     # If we have less than two arguments, print the usage message and exit
+> >     if len(sys.argv) < 2:
+> >         print("{0} usage: {0} input_file <'punctuation to ignore'>".format(
+> >             sys.argv[0]))
+> >         exit()
+> >
+> >     # First argument (and second in argv) is the input file.
+> >     input_file = sys.argv[1]
+> >
+> >     # Second argument (if it exists) is the punctuation to ignore.  Since it is
+> >     # optional, we use the Python ternary operator to assign a default value if
+> >     # the argument was not supplied
+> >     characters_to_ignore = sys.argv[2] if len(sys.argv) > 2 else ",.?"
+> >
+> >     counts = word_count(
+> >             read_file(input_file),
+> >             characters_to_ignore=characters_to_ignore)
+> >
+> >     ...
+> > ~~~
+> > {: .language-python}
 > {: .solution}
 {: .challenge}
 
-## Shortcomings of `sys.argv`
-
-- For complex programs, you can end up doing a lot of low-level work.
-- Tends to produce inflexible interfaces.
-- You just get strings. Validation for anything else like ints and files
-  requires extra work.
-- Common features of modern CLIs are tedious to implement:
-  - optional arguments.
-  - standardised help text.
-  - short and long form arguments (eg: `-f` and `--file`).
+> ## What do you think of `sys.argv` as a method?
+>
+> Spend a few minutes to discuss this with the class. What are some advantages
+> and disadvantages to using `sys.argv`?
+>
+> > ## Some thoughts
+> >
+> > - The method is simple, so for simple programs `sys.argv` may be all you
+> >   need.
+> > - For complex programs, you can end up doing a lot of low-level work that
+> >   could be done by a library.
+> > - Tends to produce inflexible interfaces. For example, specifying arguments
+> >   in a different order requires a lot more code.
+> > - `sys.argv` just returns strings. If you need other data types (eg: `bool`,
+> >   `int`) then extra work is needed.
+> > - Common features of modern interfaces are tedious to implement:
+> >   - optional arguments.
+> >   - standardised help text, including descriptions of all arguments.
+> >   - short and long form arguments (eg: `-f` and `--file`).
+> >   - Validation for specific arguments (eg: files must exist).
+> {: .solution}
+{: .discussion}
 
 ## Method 2: `argparse`
 
@@ -231,6 +277,7 @@ implementation of wordcount3.py and get users to complete/fix it?
 [python-counter]: https://docs.python.org/3/library/collections.html#counter-objects
 [python-ordereddict]: https://docs.python.org/3/library/collections.html#ordereddict-objects
 [wordcount1]: {{page.root}}/files/wordcount1.py
+[wordcount2]: {{page.root}}/files/wordcount2.py
 [argv-echo]: {{page.root}}/files/argv-echo.py
 [sample-text]: {{page.root}}/files/sample-text.txt
 [python-sys-argv]: https://docs.python.org/3/library/sys.html#sys.argv
