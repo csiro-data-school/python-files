@@ -3,9 +3,11 @@ title: "Getting arguments from the command-line"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "Why are command-line arguments useful?"
 objectives:
-- "First learning objective. (FIXME)"
+- "Be able to write simple command-line arguments using `sys.argv`."
+- "Write more complex command-line arguments with `argparse`."
+- "Become more comfortable with text file processing."
 keypoints:
 - "Using command-line arguments can make your programs easier to use and reuse."
 ---
