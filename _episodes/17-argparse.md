@@ -10,14 +10,15 @@ keypoints:
 - "Using command-line arguments can make your programs easier to use and reuse."
 ---
 
-**TODO**
+# TODO
+
 - sys.argv
 - argparse
-    - define args
-    - arg types
-    - optional args, default values
-    - help strings
-    - filters and constraints (eg: files must exist)
+  - define args
+  - arg types
+  - optional args, default values
+  - help strings
+  - filters and constraints (eg: files must exist)
 - click
 
 ## Why Bother with Command-line Arguments?
@@ -114,6 +115,7 @@ if __name__ == "__main__":
 > Glossing over the details of how the program works, what features can you see
 > that influence the reusability of this program?
 > > ## Solution
+> >
 > > - The input file is hard-coded (`"text.txt"`).
 > > - The punctuation characters to be ignored are defined as a function argument
 > >   with a default value, so the function is easily reused.
@@ -133,6 +135,7 @@ if __name__ == "__main__":
 The previous exercise identified some limitations of the word count program. Now
 we will improve the program by adding command-line arguments with the following
 goals:
+
 - The first argument should specify the input file name.
 - The optional second argument specifies a string of punctuation characters
   that should be ignored in the input text.
@@ -150,12 +153,13 @@ modelled on the C approach.
 
 > ## Echo command-line arguments
 > Write a short program that uses `sys.argv` to echo the command-line arguments
-> back to the user. Each argument should print on a separate line along with the 
+> back to the user. Each argument should print on a separate line along with the
 > argument index.
-> 
+>
 > Once you have a working program, spend a few minutes exploring different
 > arguments and their effect.
 > > ## Solution
+> >
 > > ~~~
 > > import sys
 > > for index, arg in enumerate(sys.argv):
@@ -173,25 +177,28 @@ be ignored in "wordcount2.py".
 >
 > Your challenge is to modify wordcount1.py to use `sys.argv` to implement these
 > features:
+>
 > - The first argument should specify the input file name.
 > - The optional second argument specifies a string of punctuation characters
 >   that should be ignored in the input text.
 > - If no arguments are supplied, the program should print a usage message.
 >
 > > ## Solution
+> >
 > > FIXME
 > {: .solution}
 {: .challenge}
 
 ## Shortcomings of `sys.argv`
-- For complex programs, you can end up do a lot of low-level work.
-- Tends to produce inflexible interfaces. 
+
+- For complex programs, you can end up doing a lot of low-level work.
+- Tends to produce inflexible interfaces.
 - You just get strings. Validation for anything else like ints and files
   requires extra work.
 - Common features of modern CLIs are tedious to implement:
-    - optional arguments.
-    - standardised help text.
-    - short and long form arguments (eg: `-f` and `--file`).
+  - optional arguments.
+  - standardised help text.
+  - short and long form arguments (eg: `-f` and `--file`).
 
 ## Method 2: `argparse`
 
