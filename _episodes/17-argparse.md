@@ -231,6 +231,6 @@ implementation of wordcount3.py and get users to complete/fix it?
 [python-counter]: https://docs.python.org/3/library/collections.html#counter-objects
 [python-ordereddict]: https://docs.python.org/3/library/collections.html#ordereddict-objects
 [wordcount1]: {{page.root}}/files/wordcount1.py
-[argv-echo]: {{page.root}}/files/arg-echo.py
+[argv-echo]: {{page.root}}/files/argv-echo.py
 [sample-text]: {{page.root}}/files/sample-text.txt
 [python-sys-argv]: https://docs.python.org/3/library/sys.html#sys.argv
