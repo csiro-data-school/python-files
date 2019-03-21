@@ -143,11 +143,24 @@ reached.
 >
 {: .language-python}
 
-> ## Read some text from a file
+> ## Print some text
 >
-> In this exercise, write a Python program to read lines of text from
-> `a_few_lines_of_text.txt` and print them one at a time. Prefix each line with
-> the line count. Your program should close the file there are no more lines.
+> In this exercise, write some Python code to read lines of text from
+> `a_few_lines_of_text.txt` and print them one at a time. 
+> Your program should close the file when there are no more lines.
+>
+> You should see this output:
+>
+> ~~~
+> This file contains just a few lines of text.
+>
+> Not a lot.
+>
+> Just a few.
+> ~~~
+> {: .source}
+>
+> Now, modify your code so it also prints out the line number before the line's text. 
 >
 > You should see this output:
 >
@@ -159,9 +172,9 @@ reached.
 > 2 Just a few.
 > ~~~
 > {: .source}
+>
 > > ## Solution
-> > There are many solutions, but one that only uses file operations presented
-> > so far in this episode is:
+> > One possible solution is:
 > >
 > > ~~~
 > > f = open("a_few_lines_of_text.txt")
@@ -177,23 +190,20 @@ reached.
 > {: .solution}
 {: .challenge}
 
-> ## Why does the output in the previous exercise contain blank lines?
-> The input file does not contain blank lines, so where are they coming from?
->
-> > ## Solution
-> > `print` is adding a second newline character to the string read from the
-> > file, which already contains a newline character.
-> {: .solution}
-{: .challenge }
+> ## Why all the blank lines?
+> In the previous exercise, the input file does not contain blank lines, so where are they coming from?
+> The answer is the `print` function. `print` is adding a newline character to the string read from the
+> file, which already contains a newline character.
+{: .callout }
 
-For reading lines from a file, you can iterate over the file object. This is memory efficient, fast, and leads to simple code:
+`file` objects are also *iterable*, meaning we can iterate over all the lines, just like we can iterate through elements of a `list` object, or characters in a `string` object. This is memory efficient, fast, and leads to simple code:
 ~~~
 for line in f:
     print(line)
 ~~~
 {: .language-python}
 
-> ## Update your text reading program to use file iteration
+> ## Using file iteration
 > Update your previous program to use the file iteration approach. You should
 > see the same output.
 > > ## Solution
@@ -214,6 +224,15 @@ case) are required is a very common operation, and Python provides the
 [`enumerate()`][enumerate-function] function
 for just this purpose.
 
+Let's see how this works for a list first:
+
+~~~
+my_list = ['a','b','c','d','e']
+for index, value in enumerate(my_list):
+    print(index, value)
+~~~
+{: .language-python}
+
 > ## Update your text reading program to use `enumerate`
 > Update your previous program to use the `enumerate()` function. You should
 > see the same output.
@@ -233,14 +252,40 @@ for just this purpose.
 Text can be written to a text file that has been opened for writing with the
 `write()` method on the file object:
 ~~~
-f = open("my_text.txt")
-f.write("this is a line of text.\n")
+f = open("my_text.txt", "w")
+f.write("This is a line of text")
 f.close()
 ~~~
 {: .language-python}
 
-Note that `write()` does not add a newline to the end. If you want a newline or
-carriage return, you need to add it yourself.
+> ## Write to a file
+> 
+> Use Python to make a new file and save some text:
+> ~~~
+> f = open("new_file", "w")
+> f.write("Some initial text")
+> f.write("A second line of text")
+> f.close()
+> ~~~
+> Now, open your new file using your favourite text editor. 
+> Is the content what you expect? If not, how would you fix it?
+>
+> Open your file again and try this fix:
+> ~~~
+> f = open("new_file", "w")
+> f.write("Line number one\n")
+> f.write("Line number two\n")
+> f.close()
+> ~~~
+> {: .language-python}
+> Open it again with your favourite text editor. What happened to your original text?
+{: .challenge}
+
+> ## `write()` and line breaks
+> Note that `write()` does not add a newline to the end. 
+> If you want a newline or carriage return, you need to add it yourself
+> using the string `\n`.
+{: .callout}
 
 ## Context Managers
 
