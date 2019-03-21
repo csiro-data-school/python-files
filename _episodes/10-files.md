@@ -3,9 +3,9 @@ title: "Working with Files"
 teaching: 20
 exercises: 30
 questions:
-- "How do I work with text files in Python?"
+- "How do I open a file in Python?"
+- "How do I access the data or text inside an open file?"
 objectives:
-- "Understand the difference between text and binary files."
 - "Open a text file."
 - "Close a file when processing is finished."
 - "Read lines of text from a file."
@@ -30,47 +30,45 @@ keypoints:
 
 ---
 
-## About Files
-
-- Files store data on disk.
-- They can be either text or binary files.
-- Text files store text data in standard encodings that can be understood by
-  many programs.
-    - Often have name extensions that indicate the type of file, such as `.py`
-      for Python scripts, `.csv` for comma-separated values data,
-      and `.txt` for plain text files.
-    - There are different encodings for text data that affect how the text is
-      stored. Common encodings are ASCII and UTF-8. We will ignore encodings
-      from here on.
-- Binary files store binary data. Apart from conventions about the ordering of
-  bytes on disk, binary files can have almost any internal structure.
-    - There are some well documented binary file standards, such as PDF, and
-      NetCDF.
-    - However, frequently binary files can only be read by the software that
-      created them.
-- Python supports working with both binary and text files.
-- We only explore working with text files here.
-
 ## Opening Files
 
-To open a file, we use the `open()` function, which returns a file object:
+To open a file, we use the `open()` function, which returns a **file** object:
 
 ~~~
 my_file = open("my_data_file.txt", "r")
 ~~~
 {: .language-python}
 
-- The first argument is a string containing the filename.
-- The second argument is the mode string describing the intended use.
-  The mode can be:
+Here, 
+* `my_file` is a variable name corresponding to the open file
+* `open()` is *function* that takes two arguments
+
+The first argument, `"my_data_file.txt"` is a *string* containing the filename.
+
+The second argument, `"r"`, is also a string. This is the *mode* of the open 
+file, and indicates how we want to use the file. The mode can be:
     - `"r"` : the file will only be read (this is the default)
     - `"w"` : only writing (an existing file with the same name will be erased)
     - `"a"` : for appending; any data written to the file is automatically added to the end
     - `"r+"`: both reading and writing.
-- Files are normally opened in text mode. By appending `"b"` to the mode,
-  the file will be opened in binary mode.
-- If the open succeeds, a file object will be returned.
-- If the open fails, an exception will be raised.
+
+> ## File found?
+>
+> Try and open one of the text files we downloaded:
+> ~~~
+> silly_quotes = open("monty_python.txt")
+> ~~~
+> {: .language-python}
+> What is the `type` of `silly_quotes`?
+>
+> Now try and open a file that isn't there:
+> ~~~
+> missing = open("flying_circus.txt")
+> ~~~
+> {: .language-python}
+> 
+> What happended? What is the type of `missing`?
+{: .challenge}
 
 > ## What are some reasons that opening a file might fail?
 > Try to think of some reasons that opening a file might fail. How common are
@@ -83,10 +81,12 @@ my_file = open("my_data_file.txt", "r")
 ## Closing Files
 
 Files need to be closed when they are no longer needed. One reason is that
-operating systems can lock files while they are open, to prevent unexpected
-changes while the file is in use.
+computers can 'lock' files while they are open, to prevent unexpected
+changes while the file is in use. For example, you don't want to accidently be 
+editing a text file in word at the same time as you have a Python program 
+automatically using its contents.
 
-In Python, closing files is a simple call to the `close()` method on the file
+In Python, closing files involves a call to the `close()` method on the file
 object. You can check the status of a file with the `closed` property:
 
 ~~~
@@ -100,14 +100,48 @@ print(my_file.closed)  # should print True
 
 ## Reading from a File
 
-Recall that `open()` returns a file object after successfully opening a file. This
-object can be used to read data from the file. The `readline()` method will be
-most useful to us here. It reads a single line from the file. Repeated calls to
-`readline()` will return subsequent lines in order until the end of the file is
-reached. The newline character (`\n`) is left at the end of the string, and is
-only omitted on the last line of the file. This means that the end of the file
-is indicated when `readline()` returns an empty string. Blank lines in the file
-are indicated by the string `"\n"`.
+Once we have created a file object using `open()`, we can access lines of the file
+using the `readline()` method.
+
+* `readline()` reads a single line from the file as a `string`
+* repeated calls to `readline()` will return subsequent lines of the file, in order, until the end of the file is
+reached.
+
+> ## When will it end?
+> `readline()` leaves the newline character (`\n`) at the end of the string, and is
+> only omitted on the last line of the file. This means that the end of the file
+> is indicated when `readline()` returns an empty string. This allows blank lines in the file
+> to be indicated by the string `"\n"`.
+{: .callout}
+
+> ## Open, shut them
+> 
+> Using Python:
+> 1. Open a file on your computer, and store the file object in a variable
+> 2. Use the readline() method to print the first line of your file.
+> 3. Close your file
+> 4. Use the `closed` property to check whether your file is really closed.
+>
+{: .challenge}
+
+> ## while `line`
+> Examine the following code:
+> 
+> ~~~
+> data_file = open("observation_data.csv", "r")
+> data_list = []
+> header = data_file.readline()
+> line = data_list.readline()
+> while line:
+>     data_list.append(line)
+>     line = data_list.readline()
+> ~~~
+> {: .language-python}
+>
+> What does this code do? Write out an English language explanation 
+> of each line of code. Discuss you explanation with the person sitting next to you.
+>
+{: .language-python}
 
 > ## Read some text from a file
 >
