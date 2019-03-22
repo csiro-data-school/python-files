@@ -8,7 +8,6 @@ questions:
 - "What is Test Driven Development?"
 - "What are equivalence classes and boundary conditions?"
 - "What is a doctest?"
-- "What is static analysis?" 
 objectives:
 - "Learn about the key aspects of Python testing."
 - "Write a function according to a series of simple requirements and corresponding unit tests to verify that expected behaviour is satisfied."
@@ -40,7 +39,15 @@ There are two closely related ideas:
 * Verification: building it correctly
 * Validation: building the right thing
 
-System, integration, unit, ref, but we will focus on unit testing in this episode. TODO: elaborate
+Verification is about checking that the development of software conforms to a specification, a set of requirememts. Validation is concerned with whether or not the software to be built will satisfy the original need, whether it will be fit for purpose. Testing primarily relates to verification.
+
+Software can be tested:
+* at the level of the whole system (via a GUI or some other interface);
+* at the point of integration between components;
+* via units of code such as functions;
+* with reference to known good output from a program.
+
+We will focus on unit testing in this episode
 
 A "unit" is the smallest component that can be tested, such as:
 * a function
@@ -175,7 +182,7 @@ Here we are creating a test and asserting that when passed the string `"42"`, `r
 
 Since `rpn` does nothing yet, it's no surprise that this test failed.
 
-Notice that in writing the test, we did not have to worry about the meaning of "token" (in this case, a sequence of non-space characters separated by single spaces, e.g. `42`) or how to go about storing numbers given such tokens.
+Notice that in writing the test, we did not have to worry about the meaning of "token" (in this case, a sequence of non-space characters separated by single spaces, e.g. `42`) or how to go about storing numbers given such tokens. We are treating the function `rpn` as a black box (so-called black-box testing).
 
 Let's add code to our function so that the test passes.
 > Edit `rpn.py` so that the function is changed to look like this:
@@ -291,14 +298,14 @@ Let's add code to our function so that the test passes.
 > def rpn(str):
 >    nums = []
 >
->    for x in str.split(" "):
->        if x == "+":
+>    for token in str.split(" "):
+>        if token == "+":
 >            n2 = nums.pop()
 >            n1 = nums.pop()
 >            result = _ _ _
 >            nums.append(result)
 >        else:
->            nums.append(float(x))
+>            nums.append(float(token))
 >
 >    return nums.pop()
 > ~~~
@@ -425,19 +432,19 @@ Let's move onto the next requirement.
 > def rpn(str):
 >    nums = []
 >
->    for x in str.split(" "):
->        if x == "+":
+>    for token in str.split(" "):
+>        if token == "+":
 >            n2 = nums.pop()
 >            n1 = nums.pop()
 >            result = n1+n2
 >            nums.append(result)
->        elif x == "_":
+>        elif token == "_":
 >            _______________
 >            _______________
 >            result = ___
 >            nums.append(result)
 >        else:
->            nums.append(float(x))
+>            nums.append(float(token))
 >
 >    return nums.pop()
 > ~~~
@@ -448,19 +455,19 @@ Let's move onto the next requirement.
 > > def rpn(str):
 > >    nums = []
 > >
-> >    for x in str.split(" "):
-> >        if x == "+":
+> >    for token in str.split(" "):
+> >        if token == "+":
 > >            n2 = nums.pop()
 > >            n1 = nums.pop()
 > >            result = n1+n2
 > >            nums.append(result)
-> >        elif x == "*":
+> >        elif token == "*":
 > >            n2 = nums.pop()
 > >            n1 = nums.pop()
 > >            result = n1*n2
 > >            nums.append(result)
 > >        else:
-> >            nums.append(float(x))
+> >            nums.append(float(token))
 > >
 > >    return nums.pop()
 > > ~~~
@@ -475,10 +482,73 @@ Let's move onto the next requirement.
 > {: .solution}
 {: .challenge}
 
-Adding multiplication case results in duplicated code. This would be compounded for each new operation added, e.g. `-`, `/`, `^`.
+Adding the multiplication case resulted in duplicated code. This would be compounded for each new operation added, e.g. `-`, `/`, `^`.
+
+> ## Factoring out common code
+> Modify `rpn.py` to introduce a `popargs` function that takes the list of numbers (the stack) and returns the two top numbers. Also remove the assignment to `result`.
+> ~~~
+> def rpn(str):
+>    nums = []
+>
+>    for token in str.split(" "):
+>        if token == "+":
+>            n1, n2 = popargs(nums)
+>            nums.append(n1+n2)
+>        elif token == "*":
+>            n1, n2 = popargs(nums)
+>            nums.append(n1*n2)
+>        else:
+>            nums.append(float(token))
+>
+>    return nums.pop()
+>
+> def popargs(nums):
+>    n2 = nums.pop()
+>    n1 = nums.pop()
+>    return n1, n2
+> ~~~
+> {: .language-python}
+> Re-running the tests should show that they all still pass.
+>
+> The change above is a modest improvement. Another improvement would be to have a dictionary of operator strings (`+`, `*`, ...) to `lambda` expressions (functions without a name).
+>
+> Adding new operations on two numbers would then just be a matter of adding another dictionary entry.
+>
+> Change `rpn` as follows:
+> ~~~
+> def rpn(str):
+>    opfuncs = {
+>        "+": lambda x,y: x+y, 
+>        "*": lambda x,y: x*y 
+>    }
+>
+>    nums = []
+>
+>    for token in str.split(" "):
+>        if token in opfuncs:
+>            n1, n2 = popargs(nums)
+>            func = opfuncs[token]
+>            nums.append(func(n1, n2))
+>        else:
+>            nums.append(float(token))
+>
+>    return nums.pop()
+> ~~~
+> {: .language-python}
+> Again, re-running the tests should show that they all still pass.
 
 > ## Refactoring
-> An important benefit here is that we can make changes to our code and have some confidence that problems will be caught by writing and running tests early. It is important to count the cost of testing in project planning. 
+> The practice of modifying code in order to factor out commonality, improve performance or maintainability, or otherwise modify internal implementation without changing interface (e.g. function parameters or return type) or functionality is known as refactoring.
+>
+> An important benefit here is that we can make changes to our code and have some confidence that problems will be caught by writing and running tests early and often.
+>
+> It also promotes what Richard Gabriel has called [habitability](https://www.dreamsongs.com/Files/PatternsOfSoftware.pdf) of code:
+>
+> > Habitability is the characteristic of source code that enables programmers, coders, bug-fixers, and people coming to the code later in its life to understand its construction and intentions and to change it comfortably and confidently... Habitability makes a place livable, like home. And this is what we want in software -- that developers feel at homes.
+{: .callout}
+
+> ## Regression Tests
+> When a bug is found or reported, sometimes a unit test can be used to capture the problem
 {: .callout}
 
 > ## Documentation
@@ -486,7 +556,7 @@ Adding multiplication case results in duplicated code. This would be compounded 
 {: .callout}
 
 > ## The Cost
-> It is important to count the cost of testing in project planning. 
+> Developing software is more than just writing code that implements functionality. It is important to count the cost of testing in project planning.
 {: .callout}
 
 ## Requirement 5
@@ -500,14 +570,14 @@ Adding multiplication case results in duplicated code. This would be compounded 
 > * Also empty string: one or more tokens, so "", "n"
 {: .callout}
 
-TODO: "" vs "n"
-
 ## Tests TODO
 * Additional requirement or bug report: Handle multiple spaces between tokens?
 * Negative numbers; like CHS on HP calculator
-* Invalid test: Invalid chars or delimiters
 * Multiple asserts per test function; our simple example has only shown one
-* What other tests can you think of? `12 3 * 5 +` from intro
+* What other tests can you think of? 
+  * `12 3 * 5 +` from intro
+  * Invalid test: Invalid chars or delimiters
+  * Add more operators
 
 ## Links
 * https://doc.rust-lang.org/book/ch11-00-testing.html
