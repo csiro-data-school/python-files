@@ -39,10 +39,21 @@ See Notes
 Validation and verification (the latter)
 
 ## What are the different kinds of testing?
-System, integration, unit, ...
+System, integration, unit, but we will focus on unit testing in this episode.
+TODO: elaborate
+
+A "unit" is the smallest component that can be tested, such as a function or object (or at least one or more of an object's methods (functions)).
+
+For the purpose of this episode, the component under test will be a function.
 
 ## Installing pytest
-> For unit testing, we will be using the Python module `pytest`. From a command-line terminal with Python on the path, type the following command to install the pytest module:
+There are a number of unit testing libraries and tools available for Python. The standard `unittest` library supplied with Python requires at least some understanding of classes (a future episode).
+
+For unit testing in this episode, we will be using the Python module `pytest` that allows us to simply write functions that test other functions. There are also plug-ins available for `pytest` that make its use attractive. 
+
+Before going any further, we need to install `pytest`.
+
+> From a command-line terminal with Python on the path, type the following command to install the pytest module:
 > ~~~
 > pip install pytest
 > ~~~
@@ -65,20 +76,23 @@ Remember [Reverse Polish Notation](https://commons.wikimedia.org/w/index.php?cur
 
 A traditional infix expression such as `12*3+5` becomes `12 3 * 5 +`.
 
-Suppose you are asked to write a function that takes a string representing a RPN expression and returns a real number result, along with the following requirements:
+Suppose you are asked to write a function that takes a string representing a RPN expression and returns a real number result.
+
+The following specific requirements are given:
 1. Accept a string containing one or more _single space_ delimited real
-numbers, returning the last number entered.
+number tokens and store each number in turn.
 
-1. If `+` is encountered after a _single space_, add the last two numbers, returning the result.
+1. After all tokens have been processed, extract the last number stored and return it.
 
-1. If `*` is encountered after a _single space_, multiply the last two numbers
-or results, returning the result.
+1. If `+` is encountered after a _single space_, extract the last two numbers stored, add them, and store the result.
 
-1. If two or more operands are not available for an addition or     multiplication operation, an exception should be thrown with the message: "too few operands".
+1. If `*` is encountered after a _single space_, extract the last two numbers stored, multiply them, and store the result.
+
+1. If two or more numbers are not available in storage for an operation (e.g addition) to proceed, an exception should be thrown with the message: "too few operands".
 
  How would you go about writing a function to satisfy these requirements? Real world requirements captured in a natural language may be ambiguous. Moreover, explicit requirements like these often hide other implicit ones. So, analysing even simple requirements can lead to more.
 
- We need to write a function -- let's call it `rpn` -- somewhat like this:
+ We know we need a function -- let's call it `rpn` -- somewhat like this:
 > ~~~
 > def rpn(expr):
 >   """
@@ -95,8 +109,6 @@ or results, returning the result.
 
 With a text editor, enter and save the beginnings of the `rpn` function above in a file called `rpn.py`.
 
-As we start to satisfy requirements, we will also need to know whether the function is working as expected and the sooner the better. For this we need to write unit tests: code that tests code.
-
 > From a Python interpreter prompt, type:
 > ~~~
 > from rpn import rpn
@@ -105,11 +117,17 @@ As we start to satisfy requirements, we will also need to know whether the funct
 > {: .language-python}
 > You will see no output after involing `rpn` since it does nothing and returns no value.
 
-## Requirement 1
-#### Accept a string containing one or more single space delimited real numbers, returning the last number entered
-Even before adding anything more to `rpn`, we have enough information to write our first test.
+As we start to satisfy requirements, we will also need to know whether the function is working as expected and the sooner the better. For this we need to write unit tests: code that tests code.
 
-The first requirement says that our function must accept a string containing one or more numbers separated by a space and return the last one. Let's write a test that checks for this.
+## Requirements 1 & 2
+* #### Accept a string containing one or more _single space_ delimited real number tokens and store each number in turn.
+* #### After all tokens have been processed, extract the last number stored and return it.
+
+Since at a high level we have been asked to write a function that takes a string as input and returns a real number result as output, after a bit of thought, it makes sense to consider the first two requirements together.
+
+However, even before adding anything more to `rpn`, we have enough information to write our first test.
+
+The first two requirements together say that our function must accept a string containing one or more numbers separated by single spaces and return the last one stored. Let's write a test that checks for this.
 
 > ## Write your first test
 > Open up your text editor, enter and save the following Python code in a file called `rpn_pytest.py` in the same location as `rpn.py`.
@@ -130,9 +148,9 @@ The first requirement says that our function must accept a string containing one
 > > You should see something like this (with a lot of verbosity omitted):
 > > ~~~
 > > ...
-> > rpn_pytest.py::test_rpn_num1 FAILED             [100%]
+> > rpn_pytest.py::test_rpn_num1 FAILED                    [100%]
 > >  ...
-> >  def test_rpn_num1():
+> >  def test_rpn_single_number():
 > >      assert rpn("42") == 42.0
 > > E       AssertionError: assert None == 42.0
 > > E        +  where None = rpn('42')
@@ -145,16 +163,23 @@ The first requirement says that our function must accept a string containing one
 {: .challenge}
 Here we are creating a test and asserting that when passed the string `"42"`, `rpn` will return the number `42.0`.
 
-Since `rpn` does nothing yet, it's no surprise that this test failed. Let's add code to our function so that the test passes.
-> Edit `rpn.py` so that the function has been changed to this:
+Since `rpn` does nothing yet, it's no surprise that this test failed.
+
+Notice that in writing the test, we did not have to worry about the meaning of "token" (in this case, a sequence of non-space characters separated by single spaces, e.g. `42`) or how to go about storing numbers given such tokens.
+
+Let's add code to our function so that the test passes.
+> Edit `rpn.py` so that the function is changed to look like this:
 > ~~~
-> def rpn(expr):
->    tokens = expr.split(" ")
->    last = tokens[-1]
->    return float(last)
+> def rpn(str):
+>   nums = []
+>
+>   for token in str.split(" "):
+>       nums.append(float(token))
+>
+>   return nums.pop()
 > ~~~
 > {: .language-python}
-> Run the test again from the command-line:
+> Now, run the test again from the command-line:
 > ~~~
 > py.test -v rpn_pytest.py
 > ~~~
@@ -163,55 +188,37 @@ Since `rpn` does nothing yet, it's no surprise that this test failed. Let's add 
 > > Now the test should pass:
 > > ~~~
 > > ...
-> > rpn_pytest.py::test_rpn_num1 PASSED             [100%]
+> > rpn_pytest.py::test_rpn_num1 PASSED                    [100%]
 > > ============== 1 passed in 0.05 seconds ==============
 > > ~~~
 > > {: .language-bash}
-> > 
-> > Repeat this edit-test cycle with alternative implementations of `rpn` and make sure the test still passes, e.g.
-> > ~~~
-> > def rpn(expr):
-> >     return float(expr.split(" ")[-1])
-> > ~~~
-> > {: .language-python}
-> > and
-> > ~~~
-> > def rpn(str):
-> >    for token in str.split(" "):
-> >        pass
-> >
-> >    return float(token)
-> > ~~~
-> > {: .language-python}
-> >
-> An important benefit here is that we can make changes to our code and have some confidence that problems will be caught by writing and running tests early. It is important to count the cost of testing in project planning. 
 > {: .solution}
 {: .challenge}
 
 > ## py.test notes
-> * `py.test` has numerous options, but our usage will be simple here. Run `py.test --help` for more.
+> * `py.test` has numerous options, but our usage will be simple here. Run `py.test --help` and [pytest}(https://docs.pytest.org/en/latest/) for more.
 > * Any function starting with `test` will be invoked as a test.
 {: .callout}
 
 > ## Write another test for requirement 1
-> Requirement 1 dictates that more than one number separated by single spaces.
+> Requirement 1 dictates that more than one number separated by single spaces be permitted.
 >
 > Write a test function to assert that `rpn` returns `3.0` when `"42 3"` is passed to it.
 > > ## Solution
-> > It should look like this:
+> > It should look something like this:
 > > ~~~
-> > def test_rpn_multiple_num():
+> > def test_rpn_multiple_numbers():
 > >     assert rpn("42 3") == 3.0
 > > ~~~
-> > {: .language-bash}
+> > {: .language-python}
 > > Re-run the unit tests to make sure it passes:
 > > ~~~
 > > py.test -v rpn_pytest.py
 > > ...
 > > collected 2 items
 > > 
-> > rpn_pytest.py::test_rpn_num1 PASSED             [ 50%]
-> > rpn_pytest.py::test_rpn_num2 PASSED             [100%]
+> > rpn_pytest.py::test_rpn_num1 PASSED                    [ 50%]
+> > rpn_pytest.py::test_rpn_num2 PASSED                    [100%]
 > > 
 > > ============= 2 passed in 0.06 seconds ===============
 > > ~~~
@@ -229,26 +236,40 @@ Since `rpn` does nothing yet, it's no surprise that this test failed. Let's add 
 > * Test that passing a string containing more than one number, each separated by a space, to `rpn` yields the right-most number as a corresponding value of type float.
 {: .callout}
 
-## Requirement 2
-#### If `+` is encountered after a _single space_, add the last two numbers, returning the result.
+## Requirement 3
+#### If `+` is encountered after a _single space_, extract the last two numbers stored, add them, and store the result.
 
-> ## Write a test for the second requirement
-> Edit `rpn_pytest.py` to add a test that asserts that 45 will be returned by `rpn` if the string `"42 3 +"` is passed to it.
+> ## Write a test for the third requirement
+> Edit `rpn_pytest.py` to add a test that asserts that 45 will be returned by `rpn` if the string `"42 3 +"` is passed to it, completing the missing right hand side of the numeric equality operation:
 > ~~~
-> def test_rpn_add_with_two_num():
->     assert rpn("42 3 +") == 45.0
+> def test_rpn_add_with_two_numbers():
+>     assert rpn("42 3 +") == _
 > ~~~
 > {: .language-python}
 >
-> Re-running the unit tests should yield an error for the new test:
-> ~~~
-> py.test -v rpn_pytest.py
-> ...
-> E       ValueError: could not convert string to float: '+'
-> ~~~
-> {: .language-bash}
-> Here is one approach to satisfying requirement 2:
-> TODO: causing 42 then 3 to be accumulated ("pushed onto the stack"), removed, > added and the result pushed.
+> > ## Solution
+> > The completed test is:
+> > ~~~
+> > def test_rpn_add_with_two_numbers():
+> >     assert rpn("42 3 +") == 45.0
+> > ~~~
+> > {: .language-python}
+> > Re-running the unit tests will yield an error for the new test:
+> > ~~~
+> > py.test -v rpn_pytest.py
+> > ...
+> > E       ValueError: could not convert string to float: '+'
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+{: .challenge}
+
+> ## Implement the third requirement
+> To satisfy the test in the last exercise, 42 then 3 must be stored (pushed onto a [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) of numbers, which can simply be thought of as appending to a list).
+>
+> When a `+` is seen the two numbers must be removed (popped from the top of the stack, i.e. removed from the end of the list), added, and the result accumulated (pushed onto a stack, i.e. appended to the list).
+> ![stack1](/fig/RPNstack42plus3.png) <!--{: width="242" height="120px"}-->
+> Here is one approach to satisfying requirement 2. Complete the missing right hand side of the assignment to `result`:
 > ~~~
 > def rpn(str):
 >    nums = []
@@ -257,18 +278,45 @@ Since `rpn` does nothing yet, it's no surprise that this test failed. Let's add 
 >        if x == "+":
 >            n2 = nums.pop()
 >            n1 = nums.pop()
->            nums.append(n1+n2)
+>            result = _ _ _
+>            nums.append(result)
 >        else:
 >            nums.append(float(x))
 >
 >    return nums.pop()
 > ~~~
 > {: .language-python}
-> 
 > > ## Solution
-> > TODO: test for "42 3 7 +" => 10.0
+> > The assignment should look like this:
+> > ~~~
+> > result = n1+n2
+> > ~~~
+> > {: .language-python}
+> > Re-running the tests should now give:
 > > ~~~
 > > ...
+> > rpn_pytest.py::test_rpn_single_number PASSED           [ 33%]
+> > rpn_pytest.py::test_rpn_multiple_numbers PASSED        [ 66%]
+> > rpn_pytest.py::test_rpn_add_with_two_numbers PASSED    [100%]
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+{: .challenge}
+
+> Edit `rpn_pytest.py`, adding a test to assert that `10` will be returned by `rpn` if the string `"42 3 7 +"` is passed to it.
+> > ## Solution
+> > ~~~
+> > def test_rpn_add_with_three_numbers():
+> >     assert rpn("42 3 7 +") == 10
+> > ~~~
+> > {: .language-python}
+> > Re-running the tests should now give:
+> > ~~~
+> > ...
+> > rpn_pytest.py::test_rpn_single_number PASSED           [ 25%]
+> > rpn_pytest.py::test_rpn_multiple_numbers PASSED        [ 50%]
+> > rpn_pytest.py::test_rpn_add_with_two_numbers PASSED    [ 75%]
+> > rpn_pytest.py::test_rpn_add_with_three_numbers PASSED  [100%]
 > > ~~~
 > > {: .language-bash}
 > {: .solution}
@@ -282,16 +330,21 @@ Since `rpn` does nothing yet, it's no surprise that this test failed. Let's add 
 > * also empty string
 {: .callout}
 
+> ## Refactoring
+> An important benefit here is that we can make changes to our code and have some confidence that problems will be caught by writing and running tests early. It is important to count the cost of testing in project planning. 
+{: .callout}
+
+> ## Documentation
+> Tests also provide documentation, in the form of code, of what the code must be able to do.
+{: .callout}
+
 ## Tests TODO
-* As in one day workshop
-* Handle multiple spaces between tokens?
+* Additional requirement or bug report: Handle multiple spaces between tokens?
 * Negative numbers; like CHS on HP calculator
-* Invalid tests:
-  * Invalid chars or delimiters
+* Invalid test: Invalid chars or delimiters
 * Multiple asserts per test function; our simple example has only shown one
 
 ## Links
-* [Python Testing Resources](https://confluence.csiro.au/display/~ben29w/Python+Testing+Resources)
 * https://doc.rust-lang.org/book/ch11-00-testing.html
 * The Humble Programmer
 * Kent Beck quotes
@@ -302,7 +355,6 @@ Since `rpn` does nothing yet, it's no surprise that this test failed. Let's add 
   * TDD vs Debug Later Programming (James Grenning, PragPub)
   * "Test code and TDD are first about supporting the writer of the code, getting the code to behave. Looking further out, it’s really about the reader, because the tests describe what we are building and then communicate it to the reader." (Grenning, "The TDD Microcycle")
 * Slides re: major points
-* May not want to include Python Testing Resources link above since it is on Confluence; perhaps just add links from there here?
 * Sub-section with instructions for installing pytest, hypothesis?
 * Look again at the string calculator/TDD notebooks 
 
