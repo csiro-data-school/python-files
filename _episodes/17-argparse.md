@@ -249,10 +249,10 @@ implementation of wordcount3.py and get users to complete/fix it?
 [python-sorted]: https://docs.python.org/3/library/functions.html#sorted
 [python-counter]: https://docs.python.org/3/library/collections.html#counter-objects
 [python-ordereddict]: https://docs.python.org/3/library/collections.html#ordereddict-objects
-[wordcount1]: {{page.root}}/files/wordcount1.py
-[wordcount2]: {{page.root}}/files/wordcount2.py
-[argv-echo]: {{page.root}}/files/argv-echo.py
-[sample-text]: {{page.root}}/files/sample-text.txt
 [python-sys-argv]: https://docs.python.org/3/library/sys.html#sys.argv
 [argparse]: https://docs.python.org/3/library/argparse.html
-[argparse1]: {{page.root}}/files/argparse1.py
+[argparse1]: {{page.root}}/files/command_lines/argparse1.py
+[wordcount1]: {{page.root}}/files/command_lines/wordcount1.py
+[wordcount2]: {{page.root}}/files/command_lines/wordcount2.py
+[argv-echo]: {{page.root}}/files/command_lines/argv-echo.py
+[sample-text]: {{page.root}}/files/command_lines/sample-text.txt
