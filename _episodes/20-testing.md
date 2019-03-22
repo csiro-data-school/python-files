@@ -1,50 +1,33 @@
 ---
 title: "Testing"
-teaching: 60
+teaching: 45
 exercises: 30
 questions:
 - "What is testing?"
 - "How do I write tests for Python code?"
 - "What is Test Driven Development?"
-- "What are equivalence classes and boundary conditions?"
 - "What is a doctest?"
 objectives:
 - "Learn about the key aspects of Python testing."
 - "Write a function according to a series of simple requirements and corresponding unit tests to verify that expected behaviour is satisfied."
 keypoints:
-- "..."
-- "..."
-- "..."
-- "..."
-- "..."
-- "..."
+- "Verification vs validation, different levels."
+- "There are numerous frameworks and tools, but we use pytest here."
+- "Test Driven Development places the focus on writing just enough code at each point in time to make a failing test pass."
+- "A doctest consists of a multi-line string containing a mixture of text, code and expected results (implicit assertions)."
 ---
-
-## Outline
-- Assertion
-- unit
-- Unit test
-- Test driven Dev
-- Boundary conditions
-- Equivalence classes
-- Reference test
-- Doc test
-- Static Analysis (pylint, ...) (TODO: omit?)
-
-## Introduction
-See Notes
 
 ## What is testing?
 There are two closely related ideas:
 * Verification: building it correctly
 * Validation: building the right thing
 
-Verification is about checking that the development of software conforms to a specification, a set of requirememts. Validation is concerned with whether or not the software to be built will satisfy the original need, whether it will be fit for purpose. Testing primarily relates to verification.
+Verification is about checking that the development of software conforms to a specification, satisfies a set of requirememts. Validation is concerned with whether or not the software to be built will satisfy the original need, whether it will be fit for purpose. Testing primarily relates to verification.
 
 Software can be tested:
-* at the level of the whole system (via a GUI or some other interface);
-* at the point of integration between components;
-* via units of code such as functions;
+* at the level of the whole system (via a GUI or some other interface)
+* at the point of integration between components
+* via units of code such as functions
 * with reference to known good output from a program.
 
 We will focus on unit testing in this episode
@@ -59,7 +42,7 @@ For the purpose of this episode, the component under test will be a function.
 ## Installing pytest
 There are a number of unit testing libraries and tools available for Python (and similar frameworks across many languages, collectively often referred to as [xUnit](https://en.wikipedia.org/wiki/XUnit)). The standard `unittest` library supplied with Python requires at least some understanding of classes (a future episode).
 
-For unit testing in this episode, we will be using the Python module `pytest` that allows us to simply write functions that test other functions. There are also plug-ins available for `pytest` that make its use attractive. 
+For unit testing in this episode, we will be using the Python module `pytest` that allows us to simply write functions that test other functions. There are also plug-ins available for `pytest` that make its use attractive (e.g. [hypothesis](https://github.com/HypothesisWorks/hypothesis).
 
 Before going any further, we need to install `pytest`.
 
@@ -213,7 +196,7 @@ Let's add code to our function so that the test passes.
 {: .challenge}
 
 > ## Test Driven Development
-> The idea of writing a test then writing code to make it pass before moving on is called Test Driven Development.
+> The idea of writing a test then writing code to make the test pass before moving on is called Test Driven Development.
 >
 > See [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) for more.
 > 
@@ -508,6 +491,7 @@ Adding the multiplication case resulted in duplicated code. This would be compou
 >    return n1, n2
 > ~~~
 > {: .language-python}
+>
 > Re-running the tests should show that they all still pass.
 >
 > The change above is a modest improvement. Another improvement would be to have a dictionary of operator strings (`+`, `*`, ...) to `lambda` expressions (functions without a name).
@@ -536,19 +520,20 @@ Adding the multiplication case resulted in duplicated code. This would be compou
 > ~~~
 > {: .language-python}
 > Again, re-running the tests should show that they all still pass.
+{: .challenge}
 
 > ## Refactoring
 > The practice of modifying code in order to factor out commonality, improve performance or maintainability, or otherwise modify internal implementation without changing interface (e.g. function parameters or return type) or functionality is known as refactoring.
 >
 > An important benefit here is that we can make changes to our code and have some confidence that problems will be caught by writing and running tests early and often.
 >
-> It also promotes what Richard Gabriel has called [habitability](https://www.dreamsongs.com/Files/PatternsOfSoftware.pdf) of code:
+> A robust test suite is also one factor that promotes what Richard Gabriel has called [habitability](https://www.dreamsongs.com/Files/PatternsOfSoftware.pdf) of code.
 >
 > > Habitability is the characteristic of source code that enables programmers, coders, bug-fixers, and people coming to the code later in its life to understand its construction and intentions and to change it comfortably and confidently... Habitability makes a place livable, like home. And this is what we want in software -- that developers feel at homes.
 {: .callout}
 
 > ## Regression Tests
-> When a bug is found or reported, sometimes a unit test can be used to capture the problem
+> When a bug is found or reported, a unit test may be used to capture the problem. For each new bug (or requirement), think in terms of adding a one or more unit tests. This makes it less likely that there will be a "regression", a return to a previous buggy state. If the bug does resurface (e.g. due to copy and paste), the test written at the time of bug discovery will catch it.
 {: .callout}
 
 > ## Documentation
@@ -562,35 +547,107 @@ Adding the multiplication case resulted in duplicated code. This would be compou
 ## Requirement 5
 #### If two or more numbers are not available in storage for an operation (e.g addition) to proceed, an exception should be thrown with the message: "too few operands".
 
+The pytest framework has a way of handling exceptions as part of tests.
+
+> ## Handle exception in a test case
+> Edit `rpn_pytest.py` to add this test function:
+> ~~~
+> def test_rpn_too_few_operands():
+>    with pytest.raises(Exception, match="too few operands"):
+>        rpn("42 3 * +")
+> ~~~
+> {: .language-python}
+> Run the tests to see that `test_rpn_too_few_operands` fails.
+> 
+> Modifying `popargs` in `rpn.py` as follows will address the requirement and make the test pass:
+> ~~~
+>  def popargs(nums):
+>    if len(nums) >= 2:
+>        n2 = nums.pop()
+>        n1 = nums.pop()
+>        return n1, n2
+>    else:
+>        raise ValueError("too few operands")
+> ~~~
+> {: .language-python}
+{: .challenge}
+
 > ## Boundary Condition
-> It's important to test the change in behaviour of a function relating to conditional statements such as `if`, `while`, `for`.
-> TODO:
-> * Other "edge cases", e.g. when number of things is a category; related to equiv classes also though
-> * See example from slides: min()
-> * Also empty string: one or more tokens, so "", "n"
+> It's important to test the change in behaviour of a function relating to conditional statements such as `if`, `while`, `for`, e.g. when the number passed to a `minimum` function is negative, zero, or positive.
+> 
+> Requirement 1 dictates that one or more tokens is expected to be present. How does `rpn` behave when the string is passed to it is empty?
+> 
+> See also [Boundary Testing](https://www.tutorialspoint.com/software_testing_dictionary/boundary_testing.htm) for an example.
 {: .callout}
 
-## Tests TODO
-* Additional requirement or bug report: Handle multiple spaces between tokens?
-* Negative numbers; like CHS on HP calculator
-* Multiple asserts per test function; our simple example has only shown one
-* What other tests can you think of? 
-  * `12 3 * 5 +` from intro
-  * Invalid test: Invalid chars or delimiters
-  * Add more operators
+## Doctest
+A doctest consists of a multi-line string containing a mixture of text, code and expected result.
 
-## Links
-* https://doc.rust-lang.org/book/ch11-00-testing.html
-* The Humble Programmer
-* Kent Beck quotes
+`doctest` is part of the stanard Python library.
 
-## Notes
-* Embedded C book ideas/quotes about TDD ?
-* Add Safari links to Kent Beck, Embedded C TDD, ... ?
-  * TDD vs Debug Later Programming (James Grenning, PragPub)
-  * "Test code and TDD are first about supporting the writer of the code, getting the code to behave. Looking further out, it’s really about the reader, because the tests describe what we are building and then communicate it to the reader." (Grenning, "The TDD Microcycle")
-* Slides re: major points
-* Sub-section with instructions for installing pytest, hypothesis?
-* Look again at the string calculator/TDD notebooks 
+Here's an alternative way to express some of the unit tests.
+<pre>
+"""
+RPN
+
+1.  Accept a string containing one or more _single space_ 
+    delimited real number tokens and store each number in turn.
+
+2.  After all tokens have been processed, extract the last number 
+    stored and return it.
+
+    >>> rpn('42') 
+    42.0
+
+    >>> rpn('42 3')
+    3.0
+
+3. If `+` is encountered after a _single space_, extract the last 
+   two numbers stored, add them, and store the result.
+
+    >>> rpn('42 3 +')
+    45.0
+
+    >>> math.isclose(rpn('0.1 0.2 +'), 0.3)
+    True
+
+4. If `*` is encountered after a _single space_, extract the last 
+   two numbers stored, multiply them, and store the result.
+
+    >>> rpn("42 3 3 * +") 
+    51.0
+
+5. If two or more numbers are not available in storage for an 
+   operation (e.g addition) to proceed, an exception should be 
+   thrown with the message: "too few operands".
+
+   >>> rpn("42 3 * +")
+   Traceback (most recent call last):
+        ...
+   ValueError: too few operands
+"""
+
+if __name__ == "__main__":
+    from rpn import rpn
+    import math
+    import doctest
+    doctest.testmod()
+</pre>
+Assuming you have created a file called `rpn_doctest.ry` with the foregoing doctest content, run it with the command `python rpn_doctest.py`.
+
+If there are no errors, you will see nothing on the output. Try changing `rpn` or the expected result in a test case to see what information is given.
+
+## What next?
+This episode is intended to be an introduction to testing, unit testing in particular.
+>
+> Our test functions were very simple. As your code becomes more complex, so may your unit tests. It's a good idea to keep each test case (function) as simple as possible, however it's okay to write whatever supporting code is required for a test case.
+>
+> Consider doing some of the following next:
+> * Write unit test cases for combinations of `+` and `*`, such as `12 3 * 5 +` and `42 3 2 * + 2 *`.
+* What happens if an empty string is passed to `rpn`? Think about a requirement for this. Consider returning `None`.
+* Handle multiple spaces between tokens and a test for it.
+* Should negative numbers be permitted as tokens (analogous to CHS on HP calculator)? Is that a new requirement?
+* Write an "invalid test case, e.g. for "illegal" tokens or delimiters, e.g. `42,3,2 *+ 2 *`.
+* Add more operators, e.g. `-`, `/`, `^` 
 
 {% include links.md %}
