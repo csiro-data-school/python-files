@@ -23,8 +23,8 @@ this may require some small adaptations to the exercises.
 >
 > ## Prerequisites
 >
->1. Learners need to have a basic familiarity with the command line. Specifically, you need to
->   understand:
+> 1. Learners need to have a basic familiarity with the command line.
+>    Specifically, you need to understand:
 >       1. what files and directories are,
 >       2. what a working directory is,
 >       3. how to edit a text file,
@@ -33,12 +33,11 @@ this may require some small adaptations to the exercises.
 >
 > 2. Learners must install Python before the class starts.
 >
-> 3. Learners must download the data before class starts:
->    please download and unzip the file
->    [introduction_to_python_data.zip]({{page.root}}/files/introduction_to_python_data.zip).
+> 3. Learners must download the data before class starts.
+>    Please download and unzip the file
+>    [intermediate_python_data.zip][intermediate_python_data].
 >
->    Please see [the setup instructions]({{ page.root }}/setup.html)
->    for details.
+>    Please see [the setup instructions][setup-instructions] for details.
 {: .prereq}
 
 {% include links.md %}
@@ -48,3 +47,5 @@ this may require some small adaptations to the exercises.
 [python3]: https://en.wikipedia.org/wiki/History_of_Python#Version_3
 [python_ide]: https://wiki.python.org/moin/IntegratedDevelopmentEnvironments
 [intro-to-python]: https://csiro-data-school.github.io/python/
+[setup-instructions]: {{page.root}}/setup.html
+[intermediate_python_data]: {{page.root}}/files/intermediate_python_data.zip
