@@ -11,7 +11,7 @@ def read_file(filename):
         text = input_file.read().replace('\n', ' ')
         return text
 
-def word_count(text, characters_to_ignore=",.?", ignore_case=True):
+def word_count(text, characters_to_ignore=",.?", case_sensitive=False):
     """Returns the sorted count of words in a string"""
 
     # replace all ignored characters with spaces.
@@ -21,7 +21,7 @@ def word_count(text, characters_to_ignore=",.?", ignore_case=True):
         text = text.replace(c, " ")
 
     # Convert to lower-case if required
-    if ignore_case:
+    if not case_sensitive:
         text = text.lower()
 
     # Calculate word frequencies with Counter
@@ -29,11 +29,12 @@ def word_count(text, characters_to_ignore=",.?", ignore_case=True):
 
     # Sort into descending order and store in an order-preserving OrderedDict
     return OrderedDict(
-        sorted(word_frequencies.items(),
-               key=operator.itemgetter(1),
-               reverse=True))
+            sorted(word_frequencies.items(),
+                key=operator.itemgetter(1),
+                reverse=True))
 
 if __name__ == "__main__":
     counts = word_count(read_file("sample-text.txt"))
     for word, count in counts.items():
-        print("{0}: {1}".format(word, count))
+        if count >= 2:
+            print("{0}: {1}".format(word, count))
