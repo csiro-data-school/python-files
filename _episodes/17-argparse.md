@@ -27,16 +27,6 @@ keypoints:
 {: .callout}
 
 
-# TODO
-
-- argparse
-  - define args
-  - arg types
-  - optional args, default values
-  - help strings
-  - filters and constraints (eg: files must exist)
-- click
-
 ## Command-line Arguments Make Your Programs Easier to Use and Reuse
 
 Have you ever written a short program, and then a few months
@@ -67,12 +57,47 @@ function directly influence the command-line arguments.
 
 ## Introducing Word Count
 
-Have a look at the file [wordcount1.py][wordcount1]. It contains two
-functions. The first, 
+Have a look at the file [wordcount.py][wordcount]. It contains two
+functions. The first, `read_file`, returns the entire contents of a file as
+a single string. The second, `word_count` returns a dictionary containing the
+count of words found in a string. The function signatures are:
 
 ~~~
+def read_file(filename):
+    """Returns the contents of a text file as a single string, with newlines
+    converted to spaces.
+    """
+
+def word_count(text, characters_to_ignore=",.?", case_sensitive=False):
+    """Returns an ordered dictionary containing the sorted count of words in
+    a string, with the word as dictionary key.
+    """
 ~~~
 {: .language-python}
+
+Don't worry about how these two functions work. The important thing for this
+episode is knowing what the inputs and outputs are. 
+
+> ## Run wordcount.py
+> 
+> Try running the `wordcount.py` file from the command-line:
+>
+> ~~~
+> $ python3 wordcount.py
+> ~~~
+> {: .language-bash}
+> What happens?
+> > ## Solution
+> > 
+> > Nothing. The file defines the functions, but does not call them.
+> {: .solution}
+{: .challenge}
+
+> ## Write the simplest possible program to call `word_co`
+
+
+
+# FIXME: Old content follows
 
 > ## What factors might limit reusability of that program?
 >
@@ -252,6 +277,7 @@ implementation of wordcount3.py and get users to complete/fix it?
 [python-sys-argv]: https://docs.python.org/3/library/sys.html#sys.argv
 [argparse]: https://docs.python.org/3/library/argparse.html
 [argparse1]: {{page.root}}/files/command_lines/argparse1.py
+[wordcount]: {{page.root}}/files/command_lines/wordcount.py
 [wordcount1]: {{page.root}}/files/command_lines/wordcount1.py
 [wordcount2]: {{page.root}}/files/command_lines/wordcount2.py
 [argv-echo]: {{page.root}}/files/command_lines/argv-echo.py
