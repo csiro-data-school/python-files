@@ -4,6 +4,7 @@ teaching: 15
 exercises: 25
 questions:
 - "Why are command-line arguments useful?"
+- "How can I add command-line arguments to my programs?"
 objectives:
 - "Gain experience reading and modifying code written by someone else."
 - "Be able to write simple command-line arguments using `sys.argv`."
@@ -18,6 +19,14 @@ keypoints:
 
 ---
 
+> ## Before proceeding
+>
+> Make sure you have followed the [setup instructions][setup-instructions] to
+> download and unzip the [intermediate_python_data.zip][intermediate_python_data]
+> file.
+{: .callout}
+
+
 # TODO
 
 - argparse
@@ -28,22 +37,16 @@ keypoints:
   - filters and constraints (eg: files must exist)
 - click
 
-## Why Bother with Command-line Arguments?
+## Command-line Arguments Make Your Programs Easier to Use and Reuse
 
-### They can make your programs easier to use
-
-Have you ever written a short program, and then gone to reuse it a few months
-later, only to find that you can't remember exactly how to make it work? While
-good comments and docstrings clearly help, command-line arguments can also help.
-The recommended approaches for implementing command-line arguments in Python all
-support the creation of command-line help messages with very little extra
-effort.
-
-### They can make your programs easier to reuse
+Have you ever written a short program, and then a few months
+later discovered that you that you can't remember exactly how to use it? While
+good comments and docstrings help, command-line arguments with usage messages
+can also help.
 
 For many single-use programming tasks and small programs, hard-coding values
 into the program can be sufficient. However, to make programs reusable it is
-common to supply arguments to the program from the command-line.
+helpful to supply arguments to the program from the command-line.
 
 For example, command-line arguments that specify the input data file to use will
 make a data analysis program much easier to reuse compared to the same program
@@ -59,20 +62,13 @@ Command-line arguments to a program are exactly the same. They just operate for
 the program as a whole rather than a single function. The goals are the same:
 specify the allowable variations to behaviour for a program.
 
-## Exploring the Options
+In the exercises that follow, pay attention to how arguments to the primary
+function directly influence the command-line arguments.
 
-While there are many libraries and approaches to managing command-line arguments
-in Python, here we are going to limit our exploration to two options available
-in the Python Standard Libraries. While these may not be the best options, they
-don't require installation of additional code, and understanding their use and
-limitations is invaluable when evaluating other approaches.
+## Introducing Word Count
 
-First, a scenario. You have written a function that reads a text file and
-calculates the frequency count of words in the text. Punctuation and case are
-ignored. While there are many ways to do this, here is one version that makes
-use of some string processing functions, the [`sorted`][python-sorted] function
-and two classes from the collections module: [`Counter`][python-counter] and
-[`OrderedDict`][python-ordereddict].
+Have a look now at the file [wordcount1.py][wordcount1]. It contains two
+functions. The first, 
 
 ~~~
 from collections import Counter, OrderedDict
@@ -131,11 +127,6 @@ if __name__ == "__main__":
 > {: .solution}
 {: .discussion}
 
-> ## Before proceeding
->
-> Download the [wordcount1.py][wordcount1] and [sample-text.txt][sample-text]
-> files now, as they will be used for the rest of the episode.
-{: .callout}
 
 ## What command-line arguments do we need?
 
@@ -292,6 +283,8 @@ implementation of wordcount3.py and get users to complete/fix it?
 
 {% include links.md %}
 
+[setup-instructions]: {{page.root}}/setup.html
+[intermediate_python_data]: {{page.root}}/files/intermediate_python_data.zip
 [python-sorted]: https://docs.python.org/3/library/functions.html#sorted
 [python-counter]: https://docs.python.org/3/library/collections.html#counter-objects
 [python-ordereddict]: https://docs.python.org/3/library/collections.html#ordereddict-objects
