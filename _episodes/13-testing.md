@@ -1,17 +1,17 @@
 ---
 title: "Testing"
-teaching: 30
+teaching: 60
 exercises: 30
 questions:
-- "What are the different kinds of testing?"
-- "How can I write unit tests for Python code?"
+- "What is testing?"
+- "How do I write tests for Python code?"
 - "What is Test Driven Development?"
 - "What are equivalence classes and boundary conditions?"
 - "What is a doctest?"
-- "What is static analysis?"
+- "What is static analysis?" 
 objectives:
 - "Learn about the key aspects of Python testing."
-- "Write a function according to a series of simple requirements and corresponding unit tests to verify expected behaviour is satisfied."
+- "Write a function according to a series of simple requirements and corresponding unit tests to verify that expected behaviour is satisfied."
 keypoints:
 - "..."
 - "..."
@@ -30,24 +30,27 @@ keypoints:
 - Equivalence classes
 - Reference test
 - Doc test
-- Static Analysis (pylint, ...)
+- Static Analysis (pylint, ...) (TODO: omit?)
 
 ## Introduction
 See Notes
 
-## What is testing and why test?
-Validation and verification (the latter)
+## What is testing?
+There are two closely related ideas:
+* Verification: building it correctly
+* Validation: building the right thing
 
-## What are the different kinds of testing?
-System, integration, unit, but we will focus on unit testing in this episode.
-TODO: elaborate
+System, integration, unit, ref, but we will focus on unit testing in this episode. TODO: elaborate
 
-A "unit" is the smallest component that can be tested, such as a function or object (or at least one or more of an object's methods (functions)).
+A "unit" is the smallest component that can be tested, such as:
+* a function
+* an object, or at least one or more of an object's methods (functions)
+* a module
 
 For the purpose of this episode, the component under test will be a function.
 
 ## Installing pytest
-There are a number of unit testing libraries and tools available for Python. The standard `unittest` library supplied with Python requires at least some understanding of classes (a future episode).
+There are a number of unit testing libraries and tools available for Python (and similar frameworks across many languages, collectively often referred to as [xUnit](https://en.wikipedia.org/wiki/XUnit)). The standard `unittest` library supplied with Python requires at least some understanding of classes (a future episode).
 
 For unit testing in this episode, we will be using the Python module `pytest` that allows us to simply write functions that test other functions. There are also plug-ins available for `pytest` that make its use attractive. 
 
@@ -68,6 +71,7 @@ Before going any further, we need to install `pytest`.
 > import pytest
 > ~~~
 > {: .language-python}
+> Of course, you can also try this before installing `pytest` to see whether you already have it.  
 
 ## RPN expression evaluator
 Remember [Reverse Polish Notation](https://commons.wikimedia.org/w/index.php?curid=1236760) (RPN) or post-fix calculators like these?
@@ -75,6 +79,10 @@ Remember [Reverse Polish Notation](https://commons.wikimedia.org/w/index.php?cur
 ![HP 10C](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/HP-10C_programmable_calculator.jpg/220px-HP-10C_programmable_calculator.jpg)
 
 A traditional infix expression such as `12*3+5` becomes `12 3 * 5 +`.
+
+The operator follows the operands (numbers), e.g. `*` follows `12` and `3` (post-fix).
+
+Then once the result of multiplying `3` by `12` is available, we're effectively left with an expression that looks like this: `36 5 +`. 
 
 Suppose you are asked to write a function that takes a string representing a RPN expression and returns a real number result.
 
@@ -127,7 +135,9 @@ Since at a high level we have been asked to write a function that takes a string
 
 However, even before adding anything more to `rpn`, we have enough information to write our first test.
 
-The first two requirements together say that our function must accept a string containing one or more numbers separated by single spaces and return the last one stored. Let's write a test that checks for this.
+The first two requirements together say that our function must accept a string containing one or more numbers separated by single spaces and return the last one stored.
+
+Let's write a test that checks for this.
 
 > ## Write your first test
 > Open up your text editor, enter and save the following Python code in a file called `rpn_pytest.py` in the same location as `rpn.py`.
@@ -194,6 +204,13 @@ Let's add code to our function so that the test passes.
 > > {: .language-bash}
 > {: .solution}
 {: .challenge}
+
+> ## Test Driven Development
+> The idea of writing a test then writing code to make it pass before moving on is called Test Driven Development.
+>
+> See [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) for more.
+> 
+{: .callout}
 
 > ## py.test notes
 > * `py.test` has numerous options, but our usage will be simple here. Run `py.test --help` and [pytest}(https://docs.pytest.org/en/latest/) for more.
@@ -287,7 +304,7 @@ Let's add code to our function so that the test passes.
 > ~~~
 > {: .language-python}
 > > ## Solution
-> > The assignment should look like this:
+> > The `result` assignment should look like this:
 > > ~~~
 > > result = n1+n2
 > > ~~~
@@ -322,13 +339,143 @@ Let's add code to our function so that the test passes.
 > {: .solution}
 {: .challenge}
 
-> ## Boundary Condition
-> It's important to test the change in behaviour of a function relating to conditional statements such as `if`, `while`, `for`.
-> TODO:
-> * Other "edge cases", e.g. when number of things is a category; related to equiv classes also though
-> * See example from slides
-> * also empty string
+> ## Why not add up everything?
+> In the example above (`"42 3 7 +"`) we have this sequence of stack changes:
+> ![42 3 7 + stack changes](/fig/RPNstack42plus3plus7.png)
+>
+> Add a unit test to check that `rpn` can add all three numbers.
+> > ## Solution
+> > ~~~
+> > def test_rpn_add_all_three_numbers():
+> >     assert rpn("42 3 7 + +") == 52.0
+> > ~~~
+> > {: .language-python}
+> > Re-running the unit tests should give:
+> > ~~~
+> > py.test -v rpn_pytest.py
+> > ...
+> > rpn_pytest.py::test_rpn_single_number PASSED           [ 20%]
+> > rpn_pytest.py::test_rpn_multiple_numbers PASSED        [ 40%]
+> > rpn_pytest.py::test_rpn_add_with_two_numbers PASSED    [ 60%]
+> > rpn_pytest.py::test_rpn_add_with_three_numbers PASSED  [ 80%]
+> > rpn_pytest.py::test_rpn_add_all_three_numbers PASSED   [100%]
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+{: .challenge}
+
+> ## When 0.1 + 0.2 doesn't equal 0.3
+> Real number operations sometimes yield unexpected results due to the vagaries of floating point implementaions.
+>
+> See [Why don't my numbers add up](https://floating-point-gui.de/) for more.
+>
+> Add this `import` near the top of `rpn_pytest.py`:
+> ~~~
+> import pytest
+> ~~~
+> {: .language-python}
+> Then add the following test function:
+> ~~~
+> def test_rpn_add_inexact():
+>    assert rpn("0.1 0.2 +") == 0.3
+> ~~~
+> {: .language-python}
+> Re-running the tests gives:
+> ~~~
+> rpn_pytest.py::test_rpn_add_inexact FAILED               [100%]
+> ...
+>    def test_rpn_add_inexact():
+>       assert rpn("0.1 0.2 +") == 0.3
+> E       AssertionError: assert 0.30000000000000004 == 0.3
+> E        +  where 0.30000000000000004 = rpn('0.1 0.2 +')
+> ...
+> ~~~
+> {: .language-bash}
+> pytest provides a function called `approx` to determine whether a number is approximately the same as or close to -- within some tolerance (+/- 0.000001 by default) -- some number.
+>
+See [pytest.approx](https://docs.pytest.org/en/latest/reference.html#pytest-approx) for more.
+>
+> Replacing `test_rpn_add_inexact` with the following will result in a passing test:
+> ~~~
+> def test_rpn_add_approx():
+>     assert rpn("0.1 0.2 +") == pytest.approx(0.3)
+> ~~~
+> Notice that there was nothing explicit in the requirements about this, but you will find yourself sometimes having to think in terms of numerical tolerance when writing tests.
 {: .callout}
+
+## Requirement 4
+#### If `*` is encountered after a _single space_, extract the last two numbers stored, multiply them, and store the result.
+
+Let's move onto the next requirement.
+
+> ## Test and implement multiplication
+> Add these two unit tests to `rpn_pytest.py`:
+> ~~~
+> def test_rpn_multiply_with_two_numbers():
+>     assert rpn("42 3 *") == 126.0
+>
+> def test_rpn_multiply_with_three_numbers():
+>     assert rpn("42 3 2 * *") == 252.0
+> ~~~
+> {: .language-python}
+> Since we haven't implemented multiplication yet, the tests will of course fail.
+>
+> Add handling of multiplication to the `rpn` function by completing the missing code indicated with `_`.
+> ~~~
+> def rpn(str):
+>    nums = []
+>
+>    for x in str.split(" "):
+>        if x == "+":
+>            n2 = nums.pop()
+>            n1 = nums.pop()
+>            result = n1+n2
+>            nums.append(result)
+>        elif x == "_":
+>            _______________
+>            _______________
+>            result = ___
+>            nums.append(result)
+>        else:
+>            nums.append(float(x))
+>
+>    return nums.pop()
+> ~~~
+> {: .language-python}
+> > ## Solution
+> > You should see:
+> > ~~~
+> > def rpn(str):
+> >    nums = []
+> >
+> >    for x in str.split(" "):
+> >        if x == "+":
+> >            n2 = nums.pop()
+> >            n1 = nums.pop()
+> >            result = n1+n2
+> >            nums.append(result)
+> >        elif x == "*":
+> >            n2 = nums.pop()
+> >            n1 = nums.pop()
+> >            result = n1*n2
+> >            nums.append(result)
+> >        else:
+> >            nums.append(float(x))
+> >
+> >    return nums.pop()
+> > ~~~
+> > The two tests we added above should pass now:
+> > ~~~
+> > ...
+> > rpn_pytest.py::test_rpn_multiply_with_two_numbers PASSED    [ 87%]
+> > rpn_pytest.py::test_rpn_multiply_with_three_numbers PASSED  [100%]
+> > ...
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+{: .challenge}
+
+Adding multiplication case results in duplicated code. This would be compounded for each new operation added, e.g. `-`, `/`, `^`.
 
 > ## Refactoring
 > An important benefit here is that we can make changes to our code and have some confidence that problems will be caught by writing and running tests early. It is important to count the cost of testing in project planning. 
@@ -338,11 +485,29 @@ Let's add code to our function so that the test passes.
 > Tests also provide documentation, in the form of code, of what the code must be able to do.
 {: .callout}
 
+> ## The Cost
+> It is important to count the cost of testing in project planning. 
+{: .callout}
+
+## Requirement 5
+#### If two or more numbers are not available in storage for an operation (e.g addition) to proceed, an exception should be thrown with the message: "too few operands".
+
+> ## Boundary Condition
+> It's important to test the change in behaviour of a function relating to conditional statements such as `if`, `while`, `for`.
+> TODO:
+> * Other "edge cases", e.g. when number of things is a category; related to equiv classes also though
+> * See example from slides: min()
+> * Also empty string: one or more tokens, so "", "n"
+{: .callout}
+
+TODO: "" vs "n"
+
 ## Tests TODO
 * Additional requirement or bug report: Handle multiple spaces between tokens?
 * Negative numbers; like CHS on HP calculator
 * Invalid test: Invalid chars or delimiters
 * Multiple asserts per test function; our simple example has only shown one
+* What other tests can you think of? `12 3 * 5 +` from intro
 
 ## Links
 * https://doc.rust-lang.org/book/ch11-00-testing.html
@@ -359,4 +524,3 @@ Let's add code to our function so that the test passes.
 * Look again at the string calculator/TDD notebooks 
 
 {% include links.md %}
-
