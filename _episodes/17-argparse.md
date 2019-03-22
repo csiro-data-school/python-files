@@ -57,10 +57,11 @@ function directly influence the command-line arguments.
 
 ## Introducing Word Count
 
-Have a look at the file [wordcount.py][wordcount]. It contains two
+Have a look at the file [wordcount.py][wordcount]. It contains three
 functions. The first, `read_file`, returns the entire contents of a file as
 a single string. The second, `word_count` returns a dictionary containing the
-count of words found in a string. The function signatures are:
+count of words found in a string. The third, `print_counts` displays the
+results. The function signatures are:
 
 ~~~
 def read_file(filename):
@@ -72,10 +73,15 @@ def word_count(text, characters_to_ignore=",.?", case_sensitive=False):
     """Returns an ordered dictionary containing the sorted count of words in
     a string, with the word as dictionary key.
     """
+
+def print_counts(counts, min_count=2):
+    """Prints the word counts. Only words with a count greater than or equal to
+    `min_count` are displayed.
+    """
 ~~~
 {: .language-python}
 
-Don't worry about how these two functions work. The important thing for this
+Don't worry about how these functions work. The important thing for this
 episode is knowing what the inputs and outputs are. 
 
 > ## Run wordcount.py
@@ -93,25 +99,151 @@ episode is knowing what the inputs and outputs are.
 > {: .solution}
 {: .challenge}
 
-> ## Write the simplest possible program to call `word_co`
+## Running `word_count` in the simplest possible way
 
+We need a new program to use the three provided functions. Our program will
+read from a file, count the words, and display the results. 
+The data inputs we have to work with are:
 
+1. The input file name.
+2. The punctuation characters to ignore in the file.
+3. Whether the comparisons are case-sensitive.
+4. The minimum count threshold to display.
+
+Items 2, 3, and 4 all have default values in the functions, so let's just use
+those for now. All that is left is the input file.
+
+> ## The simplest possible program to call `word_count`
+> 
+> Having looked at the possible inputs, the simplest thing is
+> to hard-code the file name, relying on default function arguments for everything
+> else. The ["sample-text.txt"][sample-text] file contains some text designed to
+> test the word count functions, so we will use that.
+>
+> Here is a program fragment that is missing some essential parts. Your
+> challenge is to complete the program and run it. 
+> 
+> Save your program as "wordcount1.py".
+> ~~~
+> from wordcount import read_file, word_count, print_counts
+> 
+> data = read_file("")      # add the filename
+> counts = word_count(...)  # add appropriate function arguments
+> print_counts(...)         # add appropriate function arguments
+> ~~~
+> {: .language-python}
+>
+> The expected output is:
+> ~~~
+> line: 7
+> this: 4
+> is: 2
+> a: 2
+> does: 2
+> ~~~
+> {: .source}
+>
+> > ## Solution
+> > ~~~
+> > from wordcount import read_file, word_count, print_counts
+> > 
+> > data = read_file("sample-text.txt")
+> > counts = word_count(data)
+> > print_counts(counts)
+> > ~~~
+> > {: .language-python}
+> The solution is available [here][wordcount1].
+> {: .solution}
+{: .challenge}
+
+## Introducing `argparse`
+
+Being able to run the code at all is great progress. However, wordcount1.py is
+quite limited. The file name is hard-coded, and all the other parameters just
+use the default values. Without modifying the program, we can't run it on
+different files, or display all words regardless of their frequency. And if our
+text has different punctuation characters, we can't handle them.
+
+It would be great if we could pass all these things in when running our program.
+
+It would be even greater if our program could also display a helpful message
+when we supply the wrong arguments, or just when we ask for help.
+
+`argparse` is a module in the Python Standard Library that does all of this for
+us. We just need to tell it what our arguments are and it handles the rest.
+It is not my goal to reproduce the [argparse documentation][argparse] here, but
+to summarise, `argparse` provides a consistent approach to:
+
+- Positional arguments (specified by position in the argument list).
+- Optional arguments with default values.
+- Named arguments (either optional or required), with both long and short
+  variations.
+- Argument validation.
+- Standardised help and usage messages.
+
+To illustrate what `argparse` code looks like, here is an example from the
+[official argparse tutorial][argparse-tutorial]. The example specifies a single
+positional argument and then prints the supplied text.
+~~~
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("echo")
+args = parser.parse_args()
+print(args.echo)
+~~~
+{: .language-python}
+
+Calling the program without any arguments prints an automatically generated
+error message:
+~~~
+$ python3 prog.py
+usage: prog.py [-h] echo
+prog.py: error: the following arguments are required: echo
+~~~
+{: .source}
+
+Calling the program with the `-h` (or `--help`) flags prints an automatically
+generated help message:
+~~~
+$ python3 prog.py --help
+usage: prog.py [-h] echo
+
+positional arguments:
+  echo
+
+optional arguments:
+  -h, --help  show this help message and exit
+~~~
+{: .source}
+
+And calling the program with any other values echoes the supplied text:
+~~~
+$ python3 prog.py foo
+foo
+~~~
+{: .source}
+
+## Designing our User Interface
+
+Even for simple user interfaces, it is helpful to think about what we want
+first. 
+
+Here, we would like to specify the following:
+
+- The input text. This is required.
+- An optional set of punctuation characters that will be ignored in the text.
+- An optional flag indicating whether comparisons are case-sensitive.
+- An optional integer specifying the minimum word frequency required for the
+  word to be displayed.
+
+We will tackle these one at a time, but first we have to get the boilerplate out
+of the way. `argparse` has a few lines of code that are always required to
+initialise and process the command-line arguments. They are present in the
+previous example, but here there are with everything else removed:
+
+FIXME todo
 
 # FIXME: Old content follows
-
-> ## What factors might limit reusability of that program?
->
-> Glossing over the details of how the program works, what features can you see
-> that influence the reusability of this program?
-> > ## Solution
-> >
-> > - The input file is hard-coded (`"text.txt"`).
-> > - The punctuation characters to be ignored are defined as a function argument
-> >   with a default value, so the function is easily reused.
-> > - The program does not allow the user to override the ignored punctuation.
-> > - The `ignore_case` argument cannot be modified when calling the program.
-> {: .solution}
-{: .discussion}
 
 
 ## What command-line arguments do we need?
@@ -125,127 +257,6 @@ goals:
   that should be ignored in the input text.
 - If no arguments are supplied, the program should print a usage message.
 
-## Method 1: `sys.argv`
-
-The oldest method that Python provides for passing arguments to your programs is
-[`sys.argv`][python-sys-argv]. It does nothing more than return a list
-containing the whitespace delimited strings from the command-line that executed
-your program. For example, the command "python3 my_file.py option1 option2"
-would return `["my_file.py", "option1", "option2"]` from `sys.argv`.
-If you have programmed in C, then this will be familiar, as `sys.argv` was
-modelled on the C approach.
-
-> ## Echo command-line arguments
-> Write a short program that uses `sys.argv` to echo the command-line arguments
-> back to the user. Each argument should print on a separate line along with the
-> argument index.
->
-> Once you have a working program, spend a few minutes exploring different
-> arguments and their effect.
-> > ## Solution
-> >
-> > ~~~
-> > import sys
-> > for index, arg in enumerate(sys.argv):
-> >     print("{0}: {1}".format(index, arg))
-> > ~~~
-> > {: .language-python}
-> > This is also provided as [argv-echo.py][argv-echo].
-> {: .solution}
-{: .challenge}
-
-The first value in the list is always the name of your script, and so it should
-be ignored in "wordcount2.py".
-
-> ## Write wordcount2.py
->
-> Your challenge is to modify wordcount1.py to use `sys.argv` to implement these
-> features:
->
-> - The first argument should specify the input file name.
-> - The optional second argument specifies a string of punctuation characters
->   that should be ignored in the input text.
-> - If no arguments are supplied, the program should print a usage message.
->
-> > ## Solution
-> >
-> > Without reproducing the whole program, here is the important new code.
-> > [Download the solution][wordcount2] if required. Note that my usage message
-> > is not great. Writing good usage messages is hard.
-> >
-> > ~~~
-> > ...
-> >
-> > if __name__ == "__main__":
-> >
-> >     # If we have less than two arguments, print the usage message and exit
-> >     if len(sys.argv) < 2:
-> >         print("{0} usage: {0} input_file <'punctuation to ignore'>".format(
-> >             sys.argv[0]))
-> >         exit()
-> >
-> >     # First argument (and second in argv) is the input file.
-> >     input_file = sys.argv[1]
-> >
-> >     # Second argument (if it exists) is the punctuation to ignore.  Since it is
-> >     # optional, we use the Python ternary operator to assign a default value if
-> >     # the argument was not supplied
-> >     characters_to_ignore = sys.argv[2] if len(sys.argv) > 2 else ",.?"
-> >
-> >     counts = word_count(
-> >             read_file(input_file),
-> >             characters_to_ignore=characters_to_ignore)
-> >
-> >     ...
-> > ~~~
-> > {: .language-python}
-> {: .solution}
-{: .challenge}
-
-> ## What do you think of `sys.argv` as a method?
->
-> Spend a few minutes to discuss this with the class. What are some advantages
-> and disadvantages to using `sys.argv`?
->
-> > ## Some thoughts
-> >
-> > - The method is simple, so for simple programs `sys.argv` may be all you
-> >   need.
-> > - For complex programs, you can end up doing a lot of low-level work that
-> >   could be done by a library.
-> > - Tends to produce inflexible interfaces. For example, specifying arguments
-> >   in a different order requires a lot more code.
-> > - `sys.argv` just returns strings. If you need other data types (eg: `bool`,
-> >   `int`) then extra work is needed.
-> > - Common features of modern interfaces are tedious to implement:
-> >   - optional arguments.
-> >   - standardised help text, including descriptions of all arguments.
-> >   - short and long form arguments (eg: `-f` and `--file`).
-> >   - Validation for specific arguments (eg: files must exist).
-> {: .solution}
-{: .discussion}
-
-## Method 2: `argparse`
-
-In addition to `sys.argv`, the Python Standard Library provides another method
-for managing command-line arguments: `argparse`. It is not my goal to reproduce
-the [argparse documentation][argparse] here, but to summarise, `argparse`
-provides a consistent approach to:
-
-- Positional arguments (specified by position in the argument list).
-- Optional arguments with default values.
-- Named arguments (either optional or required), with both long and short
-  variations.
-- Validation.
-- Standardised help and usage messages.
-
-The simplest example ([argparse1.py][argparse1]) shows how to initialise `argparse` in your code:
-~~~
-import argparse
-parser = argparse.ArgumentParser()
-parser.parse_args()
-~~~
-{: .language-python}
 
 FIXME: Should I spoon feed the exercise and solution? Provide a partial
 implementation of wordcount3.py and get users to complete/fix it?
@@ -276,9 +287,9 @@ implementation of wordcount3.py and get users to complete/fix it?
 [python-ordereddict]: https://docs.python.org/3/library/collections.html#ordereddict-objects
 [python-sys-argv]: https://docs.python.org/3/library/sys.html#sys.argv
 [argparse]: https://docs.python.org/3/library/argparse.html
+[argparse-tutorial]: https://docs.python.org/3/howto/argparse.html
 [argparse1]: {{page.root}}/files/command_lines/argparse1.py
 [wordcount]: {{page.root}}/files/command_lines/wordcount.py
-[wordcount1]: {{page.root}}/files/command_lines/wordcount1.py
+[wordcount1]: {{page.root}}/files/command_lines/wordcount1_solution.py
 [wordcount2]: {{page.root}}/files/command_lines/wordcount2.py
-[argv-echo]: {{page.root}}/files/command_lines/argv-echo.py
 [sample-text]: {{page.root}}/files/command_lines/sample-text.txt

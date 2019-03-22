@@ -35,3 +35,11 @@ def word_count(text, characters_to_ignore=",.?", case_sensitive=False):
             sorted(word_frequencies.items(),
                 key=operator.itemgetter(1),
                 reverse=True))
+
+def print_counts(counts, min_count=2):
+    """Prints the word counts. Only words with a count greater than or equal to
+    `min_count` are displayed.
+    """
+    for word, count in counts.items():
+        if count >= 2:
+            print("{0}: {1}".format(word, count))
