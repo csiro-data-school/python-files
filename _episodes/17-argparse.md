@@ -7,15 +7,9 @@ questions:
 - "How can I add command-line arguments to my programs?"
 objectives:
 - "Gain experience reading and modifying code written by someone else."
-- "Be able to write simple command-line arguments using `sys.argv`."
-- "Write more complex command-line arguments with `argparse`."
-- "Become more comfortable with text file processing."
+- "Implement command-line arguments with `argparse`."
 keypoints:
 - "Using command-line arguments can make your programs easier to use and reuse."
-- "`sys.argv` is the oldest and simplest method for reading command-line
-  arguments in Python. It just returns a list of strings."
-- "The simplicity of `sys.argv` brings limitations, and may lead to more complex
-  code."
 
 ---
 
@@ -25,7 +19,6 @@ keypoints:
 > download and unzip the [intermediate_python_data.zip][intermediate_python_data]
 > file.
 {: .callout}
-
 
 ## Command-line Arguments Make Your Programs Easier to Use and Reuse
 
@@ -82,10 +75,10 @@ def print_counts(counts, min_count=2):
 {: .language-python}
 
 Don't worry about how these functions work. The important thing for this
-episode is knowing what the inputs and outputs are. 
+episode is knowing what the inputs and outputs are.
 
 > ## Run wordcount.py
-> 
+>
 > Try running the `wordcount.py` file from the command-line:
 >
 > ~~~
@@ -94,7 +87,7 @@ episode is knowing what the inputs and outputs are.
 > {: .language-bash}
 > What happens?
 > > ## Solution
-> > 
+> >
 > > Nothing. The file defines the functions, but does not call them.
 > {: .solution}
 {: .challenge}
@@ -102,7 +95,7 @@ episode is knowing what the inputs and outputs are.
 ## Running `word_count` in the simplest possible way
 
 We need a new program to use the three provided functions. Our program will
-read from a file, count the words, and display the results. 
+read from a file, count the words, and display the results.
 The data inputs we have to work with are:
 
 1. The input file name.
@@ -114,19 +107,19 @@ Items 2, 3, and 4 all have default values in the functions, so let's just use
 those for now. All that is left is the input file.
 
 > ## The simplest possible program to call `word_count`
-> 
+>
 > Having looked at the possible inputs, the simplest thing is
 > to hard-code the file name, relying on default function arguments for everything
 > else. The ["sample-text.txt"][sample-text] file contains some text designed to
 > test the word count functions, so we will use that.
 >
 > Here is a program fragment that is missing some essential parts. Your
-> challenge is to complete the program and run it. 
-> 
+> challenge is to complete the program and run it.
+>
 > Save your program as "wordcount1.py".
 > ~~~
 > from wordcount import read_file, word_count, print_counts
-> 
+>
 > data = read_file("")      # add the filename
 > counts = word_count(...)  # add appropriate function arguments
 > print_counts(...)         # add appropriate function arguments
@@ -146,7 +139,7 @@ those for now. All that is left is the input file.
 > > ## Solution
 > > ~~~
 > > from wordcount import read_file, word_count, print_counts
-> > 
+> >
 > > data = read_file("sample-text.txt")
 > > counts = word_count(data)
 > > print_counts(counts)
@@ -226,7 +219,7 @@ foo
 ## Designing our User Interface
 
 Even for simple user interfaces, it is helpful to think about what we want
-first. 
+first.
 
 Here, we would like to specify the following:
 
@@ -236,45 +229,15 @@ Here, we would like to specify the following:
 - An optional integer specifying the minimum word frequency required for the
   word to be displayed.
 
-We will tackle these one at a time, but first we have to get the boilerplate out
-of the way. `argparse` has a few lines of code that are always required to
-initialise and process the command-line arguments. They are present in the
-previous example, but here there are with everything else removed:
-
-FIXME todo
-
-# FIXME: Old content follows
-
-
-## What command-line arguments do we need?
-
-The previous exercise identified some limitations of the word count program. Now
-we will improve the program by adding command-line arguments with the following
-goals:
-
-- The first argument should specify the input file name.
-- The optional second argument specifies a string of punctuation characters
-  that should be ignored in the input text.
-- If no arguments are supplied, the program should print a usage message.
-
-
-FIXME: Should I spoon feed the exercise and solution? Provide a partial
-implementation of wordcount3.py and get users to complete/fix it?
-
-> ## Write wordcount3.py
+> ## Write wordcount2.py
 >
-> Your challenge is to modify wordcount2.py to use `argparse` to implement these
-> features:
-> - The input file name is required, and can be specified with either short-form
->   (`-f`) or long-form arguments (`--file`).
-> - An optional argument (`-p`, `--punctuation`) specifies the punctuation
->   characters to be ignored. It should have a default value of `".,?"`.
-> - If no arguments are supplied, the program should print a usage message. The
->   usage message should describe the program purpose, the arguments (including
->   short and long-form) and whether a value is required or optional.
+> Your challenge is to implement the arguments in our design by completing
+> [wordcount2.py][wordcount2]. This program has the basic elements in place,
+> however it contains some missing sections and a couple of errors. To fix it,
+> you should refer to the argparse documentation.
 >
 > > ## Solution
-> > FIXME
+> > [wordcount2_solution.py][wordcount2_sln] contains a working version of the program.
 > {: .solution}
 {: .challenge}
 
@@ -288,8 +251,8 @@ implementation of wordcount3.py and get users to complete/fix it?
 [python-sys-argv]: https://docs.python.org/3/library/sys.html#sys.argv
 [argparse]: https://docs.python.org/3/library/argparse.html
 [argparse-tutorial]: https://docs.python.org/3/howto/argparse.html
-[argparse1]: {{page.root}}/files/command_lines/argparse1.py
 [wordcount]: {{page.root}}/files/command_lines/wordcount.py
 [wordcount1]: {{page.root}}/files/command_lines/wordcount1_solution.py
 [wordcount2]: {{page.root}}/files/command_lines/wordcount2.py
+[wordcount2_sln]: {{page.root}}/files/command_lines/wordcount2_solution.py
 [sample-text]: {{page.root}}/files/command_lines/sample-text.txt
