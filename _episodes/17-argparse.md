@@ -1,7 +1,7 @@
 ---
 title: "Getting arguments from the command-line"
-teaching: 15
-exercises: 25
+teaching: 30
+exercises: 40
 questions:
 - "Why are command-line arguments useful?"
 - "How can I add command-line arguments to my programs?"
