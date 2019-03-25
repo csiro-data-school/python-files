@@ -1,5 +1,5 @@
 import Argparse     # Required to use the argparse module
-from wordcount import read_file, word_count, print_counts
+from wordcount import read_file, word_count
 
 
 def get_program_args():
@@ -58,18 +58,11 @@ def get_program_args():
 
 if __name__ == "__main__":
 
-    # Initialise the argument parser
     args = get_program_args()
 
-    # Now that we have our arguments, we can just use them :)
     counts = word_count(
             read_file(args.file),
             characters_to_ignore=args.punctuation,
-            # Small gotcha here. The argument was called "case-sensitive" which
-            # is not a valid identifier. Argparse knows this and replaces "-"
-            # with "_".
-            case_sensitive=args.case_sensitive)
+            case_sensitive=args.case-sensitive)
 
-    for word, count in counts.items():
-        if count >= args.min_count:
-            print("{0}: {1}".format(word, count))
+    print_counts(counts)
