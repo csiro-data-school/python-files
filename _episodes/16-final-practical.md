@@ -17,11 +17,28 @@ keypoints:
 
 ## Final Practical
 
-* This final practicle is going to combine all that you have learnt <br/>
-about Python into one command line program!
-* The challenge is to write a command line Python prgam using Argparse that can:
-	* Open a plain text file research article
+* This final practicle is going to combine all that you have learnt about Python into one command line program!
+* The challenge is to write a command line Python progam using Argparse (under version control) that can:
+	* Open a plain text file of a research article.
 	* Search the article for references to `R` and/or `Python`.
 		* <i>bonus: search for the versions of `R` or `Python`.<i/>
 	* Return the number of times the article refers to `R` and/or `Python`.
 	* Choose whether or not to save the output and choose the output file name.
+
+## Example articles
+### Python PDF and XML
+* https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005871&type=printable
+* https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005871&type=manuscript
+
+### Python and R PDF and XML
+* https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005510&type=printable
+* https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005510&type=manuscript
+
+### R PDF and XML
+* https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1004140&type=printable
+* https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1004140&type=manuscript
+
+### Need an Example of a Paper for without reference to either
+
+## Part 1 - Setup of Git Repository and Python Script
+
