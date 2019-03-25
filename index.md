@@ -31,7 +31,10 @@ this may require some small adaptations to the exercises.
 >       4. how to start a Python interpreter,
 >       5. and how to execute Python files.
 >
-> 2. Learners must install Python before the class starts.
+> 2. Learners must install Python before the class starts. The [Anaconda
+>    distribution][anaconda] is a free distribution that provides a consistent
+>    set of scientific Python libraries for Windows, Linux, and Mac. We
+>    recommend you use Anaconda for this course, however any Python 3 will work.
 >
 > 3. Learners must download the data before class starts.
 >    Please download and unzip the file
@@ -49,3 +52,4 @@ this may require some small adaptations to the exercises.
 [intro-to-python]: https://csiro-data-school.github.io/python/
 [setup-instructions]: {{page.root}}/setup.html
 [intermediate_python_data]: {{page.root}}/files/intermediate_python_data.zip
+[anaconda]: https://www.anaconda.com/distribution/
