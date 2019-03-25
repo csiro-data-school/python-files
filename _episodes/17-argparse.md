@@ -225,22 +225,24 @@ Here, we would like to specify the following:
 
 - The input text.
     - Required.
-    - Short-form name: `-f`
-    - Long-form argument name: `--file`
+    - Positional argument named "file".
     - Argument data type: `str`
 - An optional set of punctuation characters that will be ignored in the text.
     - Optional.
+    - Default value: ",.?"
     - Short-form name: `-p`
     - Long-form argument name: `--punctuation`
     - Argument data type: `str`
 - An optional flag indicating whether comparisons are case-sensitive.
     - Optional.
+    - Default value: `False`
     - Short-form name: `-c`
     - Long-form argument name: `--case-sensitive`
     - Argument data type: `bool`
 - An optional integer specifying the minimum word frequency required for the
   word to be displayed.
     - Optional.
+    - Default value: 2
     - Short-form name: `-m`
     - Long-form argument name: `--min-count`
     - Argument data type: `int`
@@ -254,30 +256,81 @@ Here, we would like to specify the following:
 > wordcount2.py. You may also need to refer to [the argparse
 > documentation][argparse].
 >
-> The following test cases show the test command line and the expected output.
-> Your solution will be correct when you see the same outputs from your
-> corrected program.
+> The following test cases show the test command line and the expected output
+> for some combinations of inputs. Make sure you try other combinations as well
+> to see if the outputs look OK.
 >
 > ### No arguments
 > ~~~
+> $ python3 wordcount2.py
+> usage: wordcount2.py [-h] [-p PUNCTUATION] [-c] [-m MIN_COUNT] file
+> wordcount2.py: error: the following arguments are required: file
 > ~~~
 > {: .language-source}
->
+> 
 > ### Help
 > ~~~
+> $ python3 wordcount2.py --help
+> usage: wordcount2.py [-h] [-p PUNCTUATION] [-c] [-m MIN_COUNT] file
+> 
+> positional arguments:
+>   file                  The input text file
+> 
+> optional arguments:
+>   -h, --help            show this help message and exit
+>   -p PUNCTUATION, --punctuation PUNCTUATION
+>                         Punctuation to ignore when counting words.
+>   -c, --case-sensitive  Force a case-sensitive count. By default, case is
+>                         ignored.
+>   -m MIN_COUNT, --min-count MIN_COUNT
+>                         The minimum word count threshold for display.
 > ~~~
 > {: .language-source}
 > 
 > ### File argument
 > ~~~
+> $ python3 wordcount2.py sample-text.txt 
+> line: 7
+> this: 4
+> a: 3
+> is: 2
+> why: 2
+> does: 2
+> or: 2
+> two;;: 2
 > ~~~
 > {: .language-source}
 > 
-> ### 
+> ### Semi-colon in punctuation
+> 
 > ~~~
+> $ python3 wordcount2.py sample-text.txt --punctuation ",.?;"
+> line: 7
+> this: 4
+> a: 3
+> two: 3
+> is: 2
+> why: 2
+> does: 2
+> or: 2
 > ~~~
 > {: .language-source}
->
+> 
+> ### Case-sensitive comparisons
+> 
+> Note that the count for some words has changed. Try setting the `-min-count`
+> flag to 1 to see the full set of words.
+> ~~~
+> $ python3 wordcount2.py sample-text.txt --case-sensitive
+> line: 6
+> this: 3
+> is: 2
+> a: 2
+> does: 2
+> or: 2
+> two;;: 2
+> ~~~
+> {: .language-source}
 > > ## Solution
 > > [wordcount2_solution.py][wordcount2_sln] contains a working version of the program.
 > {: .solution}

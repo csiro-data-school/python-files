@@ -10,9 +10,7 @@ def get_program_args():
 
     # Define the input file name argument
     parser.add_argument(
-            "-f",           # short-form argument
-            "--file",       # long-form argument
-            required=True,  # This argument is required
+            "file",
             help="The input text file")
 
     # Define the optional punctuation argument
@@ -47,7 +45,7 @@ def get_program_args():
             "--min-count",
             required=False,
             type=int,
-            default=1,
+            default=2,
             help="The minimum word count threshold for display.")
 
     # parse_args first checks for errors, and if there are none, it returns
