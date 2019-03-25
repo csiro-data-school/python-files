@@ -1,13 +1,23 @@
 ---
 title: "Modules"
-teaching: 0
-exercises: 0
+teaching: 30
+exercises: 20
 questions:
-- "Key question (FIXME)"
+- "How do I use code defined in other files or libraries?"
+- "What does the `import` statement do?"
+- "What are the effects of the common import variations?"
 objectives:
-- "First learning objective. (FIXME)"
+- "Learn what a module is."
+- "Learn how to import symbols from other files and modules."
+- "Understand the differences between the different forms of import statements."
+- "Be able to import modules into your code."
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "Modules are simply Python files."
+- "To use code from a module, it has to be imported."
+- "The `import` command is used to import code from a module."
+- "There are different ways to import from a module. Select the appropriate
+  method based on the required effect."
+
 ---
 
 ## Modules and Packages
@@ -15,7 +25,8 @@ keypoints:
 [Modules][python-modules] in Python are simply Python files with the .py
 extension.
 
-To import a module, we use the `import` command.
+To use the functionality of a module, it has to be imported into your code. To
+import a module, we use the `import` command.
 
 The [full list of built-in modules][python-standard-modules] can be found in the
 Python documentation.
