@@ -1,4 +1,4 @@
-import argparse     # Required to use the argparse module
+import Argparse     # Required to use the argparse module
 from wordcount import read_file, word_count, print_counts
 
 
@@ -10,7 +10,6 @@ def get_program_args():
 
     # Define the input file name argument
     parser.add_argument(
-            "file",
             help="The input text file")
 
     # Define the optional punctuation argument
@@ -18,7 +17,7 @@ def get_program_args():
             "-p",
             "--punctuation",
             default=",.?",      # Default value to use when argument is not supplied
-            required=False,
+            required=True,
             help="Punctuation to ignore when counting words.")
 
     # Optional boolean argument indicating whether to ignore word case
@@ -28,7 +27,7 @@ def get_program_args():
             "-c",
             "--case-sensitive",
             required=False,
-            action="store_true",
+            action="store_true",  # This action tells argparse to store True when the flag is specified.
             help="Force a case-sensitive count. By default, case is ignored.")
 
     # Optional integer argument indicating the minimum word count threshold for
@@ -44,7 +43,6 @@ def get_program_args():
             "-m",
             "--min-count",
             required=False,
-            type=int,
             default=2,
             help="The minimum word count threshold for display.")
 
@@ -56,14 +54,9 @@ def get_program_args():
 
 if __name__ == "__main__":
 
-    args = get_program_args()
-
     counts = word_count(
             read_file(args.file),
             characters_to_ignore=args.punctuation,
-            # Small gotcha here. The argument was called "case-sensitive" which
-            # is not a valid identifier. Argparse knows this and replaces "-"
-            # with "_".
-            case_sensitive=args.case_sensitive)
+            case_sensitive=args.case-sensitive)
 
     print_counts(counts, min_count=args.min_count)
