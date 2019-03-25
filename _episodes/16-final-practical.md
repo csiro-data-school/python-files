@@ -1,5 +1,5 @@
 ---
-title: "Final practical: How Many Articles Reference that they use `R` and `Python`?"
+title: "Final practical: How Many Articles Reference that they use R and/or Python?"
 teaching: 30
 exercises: 60
 questions:
