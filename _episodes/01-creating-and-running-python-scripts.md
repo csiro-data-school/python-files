@@ -11,7 +11,7 @@ objectives:
 - "Write comments in the script, and use them to disable a line of code."
 keypoints:
 - "Python scripts are plain text files, usually with the `.py` extension."
-- "You execute Python scripts in `Git Bash` by calling: `python my_script_name.py`."
+- "You execute Python scripts at the command-line with the Python interpreter."
 - "Values are displayed using the `print` function."
 - "Comments are indicated with `#`. Anything between the `#` and the end of the line is ignored."
 ---
@@ -26,7 +26,7 @@ keypoints:
       Integrated Development Environment (IDE), or at the very least
       a syntax-aware text editor.
     * For this lesson, a simple text editor will be fine. Use whatever you feel
-      comfortable with, e.g. VIM.
+      comfortable with.
 
 > ## Write your first Python program
 >
@@ -40,18 +40,12 @@ keypoints:
 >
 > Now save the file as `hello-world.py`.
 >
->>> ## What Git Bash Commands do we use to navigate through directories and inspect them?
->>> 
->>> `cd <folderName>` to change directory <br/>
->>> `ls -a` to list all files and folders in the current directory
->>{: .callout}
->
-> Next, open up `Git Bash`, and change to the directory that you
-> saved `hello-world.py` to. Once in the correct directory, call Python
+> Next, open up a command-line terminal, and change to the directory that you
+> saved `hello-world.py` to. At the command-line, call the Python interpreter
 > and tell it to run your script:
 >
 > ~~~
-> $ python hello-world.py
+> $ python3 hello-world.py
 > ~~~
 > {: .language-bash}
 > > ## Solution
@@ -64,10 +58,24 @@ keypoints:
 > {: .solution}
 {: .challenge}
 
+> ## Why is the command `python3` instead of just `python`?
+> This lesson uses Python 3, which is the current major version of Python.
+> However, a lot of systems still have Python 2 as the default version which
+> will be called if you use the `python` command. If `python3` doesn't work,
+> then try `python`. On your system this may be Python 3. You can always check
+> the versions by trying the following at the command-line:
+>
+> ~~~
+> $ python --version
+> $ python2 --version
+> $ python3 --version
+> ~~~
+> {: .language-bash}
+{: .callout}
+
 ## Comments
 
-- Remember we used comments in Jupyter, it is the same here.
-- Comments use the `#` symbol.
+- Comments in all versions of Python use the `#` symbol.
 - All text between the `#` and the end of the current line will be ignored.
 - Comments can occur at the start of a line, or part-way along.
 - There are conventions and guidelines for comments. Some important ones are:
@@ -80,8 +88,9 @@ keypoints:
 > not. Why?
 > ~~~
 > # Filter out missing values, because they break my analysis
-> filter_missing_values(my_data):
->     y = 2 * x + 7  # Multiply x by 2, add 7, then store in y
+> filter_missing_values(my_data)
+> 
+> y = 2 * x + 7  # Multiply x by 2, add 7, then store in y
 > ~~~
 > {: .language-python}
 > > ## Solution
@@ -93,6 +102,7 @@ keypoints:
 
 > ## Modify your first program with some comments
 >
+> FIXME: Is this too easy?
 >
 > Open up `hello-world.py` with your editor again, and comment out the `print`
 > line. Then run the file once more. What happens? Why?
@@ -103,6 +113,8 @@ keypoints:
 {: .challenge}
 
 > ## Experiment
+>
+> FIXME: Is this too easy?
 >
 > Spend a few minutes experimenting with your hello world program.
 > 
