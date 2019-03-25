@@ -42,22 +42,9 @@ conda update --all
 ~~~
 {: .source}
 
-## Check that you can run Python from Git Bash
-
-1. Open up `Git Bash`.
-2. Type the following:
-
-~~~
-$ python --version
-~~~
-{: .language-bash}
-
-3. If you see the following then you have Python 3.7.1 running and you are good to go.
-
-~~~
-Python 3.7.1
-~~~
-{: .output}
+> ## Updating is not essential for this course
+> 
+> If you would rather skip updating, then it is not essential for this course.
 {: .callout}
 
 {% include links.md %}
