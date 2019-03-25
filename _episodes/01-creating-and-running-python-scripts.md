@@ -40,11 +40,11 @@ keypoints:
 >
 > Now save the file as `hello-world.py`.
 >
->> ## What Git Bash commands do we use to navigate through directories and files?
->> 
->> `cd <folderName>` to change directory
->> `ls -a` to list all files and folders in the current directory
->{: .callout}
+>>> ## What Git Bash commands do we use to navigate through directories and files?
+>>> 
+>>> `cd <folderName>` to change directory <br/>
+>>> `ls -a` to list all files and folders in the current directory
+>>{: .callout}
 >
 > Next, open up `Git Bash`, and change to the directory that you
 > saved `hello-world.py` to. Once in the correct directory, call Python
