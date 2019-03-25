@@ -98,8 +98,6 @@ keypoints:
 
 > ## Experiment
 >
-> FIXME: Is this too easy?
->
 > Spend a few minutes experimenting with your hello world program.
 > 
 > Suggestions:
