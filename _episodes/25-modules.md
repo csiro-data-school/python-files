@@ -145,6 +145,52 @@ print(a)
 > {: .solution}
 {: .challenge}
 
+### `from math import pi`
+
+This one looks a little different. It starts with `from` rather than `import`,
+but it is still an import statement. `from math import pi` is still importing
+from the math module, but rather than importing everything and then needing to
+access those symbols with the `math.` prefix, it specifically imports just the
+definition of `pi`. There is another critical difference. See if you can work
+out what it is?
+
+> ## The differences between `import math` and `from math import pi`
+>
+> **Make sure to start a new interpreter session, or this example won't work.**
+> 
+> Either in a file or Python interpreter, try running the following code:
+> ~~~
+> from math import pi
+> print(pi)
+> print(math.pi)
+> ~~~
+> {: .language-python}
+> > ## Solution
+> > When importing specific symbols, nothing else from the module will be
+> > available to your code. In this example, we have imported `pi` but nothing
+> > else. Not even the `math.` prefix is defined.
+> > 
+> > The other critical difference is that the imported symbol no longer requires
+> > a prefix. You need to take care that it doesn't conflict with your own
+> > variables or functions.
+> {: .solution}
+{: .challenge}
+
+### `from math import *`
+
+The code `from math import *` looks very similar to `from math import pi`, but
+the effect on your code is huge. The `*` is a wildcard that matches everything
+in the math module. The effect is to import everything **without** the `math.`
+prefix. While this can be very convenient during interactive coding sessions and
+in small programs, great care must be taken to avoid conflicts. If two modules
+that you are using both define a function called `count_words`, then the version
+you end up with depends on which was imported last. Things might work, but when
+they fail errors like this can be very hard to find.
+
+For these reasons, it it generally recommended to avoid this type of 
+import. However, it can still be convenient so long as you are aware of the
+risks.
+
 {% include links.md %}
 
 [python-documentation]: https://docs.python.org/3/
