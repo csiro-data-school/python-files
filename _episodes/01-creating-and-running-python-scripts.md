@@ -66,7 +66,7 @@ keypoints:
 
 ## Comments
 
-- Remember we used comments in Jypyter, it is the same here.
+- Remember we used comments in Jupyter, it is the same here.
 - Comments use the `#` symbol.
 - All text between the `#` and the end of the current line will be ignored.
 - Comments can occur at the start of a line, or part-way along.
