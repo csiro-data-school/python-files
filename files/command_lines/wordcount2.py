@@ -1,5 +1,5 @@
-import Argparse     # Required to use the argparse module
-from wordcount import read_file, word_count
+import argparse     # Required to use the argparse module
+from wordcount import read_file, word_count, print_counts
 
 
 def get_program_args():
@@ -63,6 +63,9 @@ if __name__ == "__main__":
     counts = word_count(
             read_file(args.file),
             characters_to_ignore=args.punctuation,
-            case_sensitive=args.case-sensitive)
+            # Small gotcha here. The argument was called "case-sensitive" which
+            # is not a valid identifier. Argparse knows this and replaces "-"
+            # with "_".
+            case_sensitive=args.case_sensitive)
 
-    print_counts(counts)
+    print_counts(counts, min_count=args.min_count)

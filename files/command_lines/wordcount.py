@@ -41,5 +41,5 @@ def print_counts(counts, min_count=2):
     `min_count` are displayed.
     """
     for word, count in counts.items():
-        if count >= 2:
+        if count >= min_count:
             print("{0}: {1}".format(word, count))

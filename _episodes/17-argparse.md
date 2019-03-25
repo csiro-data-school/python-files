@@ -223,18 +223,60 @@ first.
 
 Here, we would like to specify the following:
 
-- The input text. This is required.
+- The input text.
+    - Required.
+    - Short-form name: `-f`
+    - Long-form argument name: `--file`
+    - Argument data type: `str`
 - An optional set of punctuation characters that will be ignored in the text.
+    - Optional.
+    - Short-form name: `-p`
+    - Long-form argument name: `--punctuation`
+    - Argument data type: `str`
 - An optional flag indicating whether comparisons are case-sensitive.
+    - Optional.
+    - Short-form name: `-c`
+    - Long-form argument name: `--case-sensitive`
+    - Argument data type: `bool`
 - An optional integer specifying the minimum word frequency required for the
   word to be displayed.
+    - Optional.
+    - Short-form name: `-m`
+    - Long-form argument name: `--min-count`
+    - Argument data type: `int`
 
 > ## Write wordcount2.py
 >
 > Your challenge is to implement the arguments in our design by completing
 > [wordcount2.py][wordcount2]. This program has the basic elements in place,
 > however it contains some missing sections and a couple of errors. To fix it,
-> you should refer to the argparse documentation.
+> you will need to pay attention to the error messages that come from running
+> wordcount2.py. You may also need to refer to [the argparse
+> documentation][argparse].
+>
+> The following test cases show the test command line and the expected output.
+> Your solution will be correct when you see the same outputs from your
+> corrected program.
+>
+> ### No arguments
+> ~~~
+> ~~~
+> {: .language-source}
+>
+> ### Help
+> ~~~
+> ~~~
+> {: .language-source}
+> 
+> ### File argument
+> ~~~
+> ~~~
+> {: .language-source}
+> 
+> ### 
+> ~~~
+> ~~~
+> {: .language-source}
 >
 > > ## Solution
 > > [wordcount2_solution.py][wordcount2_sln] contains a working version of the program.

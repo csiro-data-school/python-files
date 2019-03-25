@@ -6,3 +6,4 @@ I don't know.
 Command-line arguments are fun.
 Should hyphenated words count as one word or two?
 What does this implementation do?
+A semi-colon; why not?

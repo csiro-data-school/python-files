@@ -68,4 +68,4 @@ if __name__ == "__main__":
             # with "_".
             case_sensitive=args.case_sensitive)
 
-    print_counts(counts)
+    print_counts(counts, min_count=args.min_count)
