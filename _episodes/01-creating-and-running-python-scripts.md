@@ -11,7 +11,7 @@ objectives:
 - "Write comments in the script, and use them to disable a line of code."
 keypoints:
 - "Python scripts are plain text files, usually with the `.py` extension."
-- "You execute Python scripts at the command-line with the Python interpreter."
+- "You execute Python scripts in `Git Bash` by calling: `python my_script_name.py`."
 - "Values are displayed using the `print` function."
 - "Comments are indicated with `#`. Anything between the `#` and the end of the line is ignored."
 ---
