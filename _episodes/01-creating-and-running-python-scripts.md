@@ -40,7 +40,7 @@ keypoints:
 >
 > Now save the file as `hello-world.py`.
 >
->>> ## What Git Bash commands do we use to navigate through directories and files?
+>>> ## What Git Bash Commands do we use to navigate through directories and inspect them?
 >>> 
 >>> `cd <folderName>` to change directory <br/>
 >>> `ls -a` to list all files and folders in the current directory
