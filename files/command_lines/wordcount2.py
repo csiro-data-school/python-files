@@ -26,7 +26,6 @@ def get_program_args():
     parser.add_argument(
             "-c",
             "--case-sensitive",
-            required=False,
             action="store_true",  # This action tells argparse to store True when the flag is specified.
             help="Force a case-sensitive count. By default, case is ignored.")
 
@@ -42,7 +41,6 @@ def get_program_args():
     parser.add_argument(
             "-m",
             "--min-count",
-            required=False,
             default=2,
             help="The minimum word count threshold for display.")
 

@@ -22,7 +22,8 @@ def get_program_args():
             "-p",
             "--punctuation",
             default=",.?",      # Default value to use when argument is not supplied
-            ## This should be optional
+            ## This should be optional. Either set `required=False` or remove the line,
+            ## since named arguments are optional by default.
             required=False,
             help="Punctuation to ignore when counting words.")
 
@@ -32,7 +33,6 @@ def get_program_args():
     parser.add_argument(
             "-c",
             "--case-sensitive",
-            required=False,
             action="store_true",  # This action tells argparse to store True when the flag is specified.
             help="Force a case-sensitive count. By default, case is ignored.")
 
@@ -48,7 +48,6 @@ def get_program_args():
     parser.add_argument(
             "-m",
             "--min-count",
-            required=False,
             ## We need to specify the argument type as `int`
             type=int,
             default=2,
