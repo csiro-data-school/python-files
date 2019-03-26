@@ -30,6 +30,13 @@ keypoints:
 
 ---
 
+Before beginning this lesson, please download the following files and store them in a 
+`data` folder within `dataschool/python`:
+
+[a_few_lines_of_text]({{ page.root }}{% link data/a_few_lines_of_text.txt %})
+
+
+
 ## Reading files
 
 Reading files in python uses `for` loops. As a refresher, here is a simple `for` loop in Python:
@@ -60,7 +67,7 @@ closed again when we are done with it, and that the working memory it occupies b
 general recipe for reading a file:
 
 ~~~
-with open('my_file') as f:
+with open('my_file.txt') as f:
     for line in f:
         print(line)
 ~~~
@@ -68,9 +75,9 @@ with open('my_file') as f:
 
 
 > ## Open a file
-> Fill in the blanks below to open and print the contents of a hypothetical file `my_file.txt`:
+> Fill in the blanks below to open and print the contents of a hypothetical file `data.csv`:
 > ~~~
-> with open('my_file.txt') as f:
+> with open('data.csv') as f:
 >     for line in ___:
 >         print(____)
 > ~~~
