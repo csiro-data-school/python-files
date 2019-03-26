@@ -30,6 +30,55 @@ keypoints:
 
 ---
 
+## Reading files
+
+Reading files in python uses `for` loops. As a refresher, here is a simple `for` loop in Python:
+
+~~~
+for letter in 'ABCDEFGHIJ':
+    print(letter)
+~~~
+{: .language-python}
+
+> ## For loop practice
+> Write a `for` loop that generates this image:
+>
+> .
+>
+> ..
+>
+> ...
+>
+> ....
+>
+> .....
+{: .challenge}
+
+Working with files is a two-step process. We first need to 'open' the file. Then, we can 'read' it line by line. 
+There is some special syntax for opening files in Python. Behind the scenes, this special sytnax makes sure that the file is
+closed again when we are done with it, and that the working memory it occupies becomes freed up for use again. This is the 
+general recipe for reading a file:
+
+~~~
+with open('my_file') as f:
+    for line in f:
+        print(line)
+~~~
+{: .language-python}
+
+
+> ## Open a file
+> Fill in the blanks below to open and print the contents of a hypothetical file `my_file.txt`:
+> ~~~
+> with open('my_file.txt') as f:
+>     for line in ___:
+>         print(____)
+> ~~~
+> {: .language-python}
+{: .challenge}
+
+Try it out on a plain text file of your own. Substitute, `my_file` for the full *path* and *name* of the file you want to open, e.g. `~/mce03b/dataschool/python/script.txt`
+
 ## Opening Files
 
 To open a file, we use the `open()` function, which returns a **file** object:
