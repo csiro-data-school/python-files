@@ -117,49 +117,20 @@ with open('dataschool/python/a_few_lines_of_text.txt') as fluffy:
 
 > ## File found?
 >
-> Try and open one of the text files we downloaded:
+> Try and open a non-existent text file:
 > ~~~
-> silly_quotes = open("monty_python.txt")
+> with open('flying_circus.txt') as f:
+>     for line in f:
+>         print(line)
 > ~~~
-> {: .language-python}
-> What is the `type` of `silly_quotes`?
->
-> Now try and open a file that isn't there:
-> ~~~
-> missing = open("flying_circus.txt")
-> ~~~
-> {: .language-python}
-> 
-> What happended? What is the type of `missing`?
-{: .challenge}
-
-> ## What are some reasons that opening a file might fail?
-> Try to think of some reasons that opening a file might fail. How common are
-> they? Are there any particular situations that your program needs to handle?
->
-> Often no special handling apart from displaying an error message is required,
-> but thinking about these questions can help us write more robust code.
-{: .discussion}
-
-## Closing Files
-
-Files need to be closed when they are no longer needed. One reason is that
-computers can 'lock' files while they are open, to prevent unexpected
-changes while the file is in use. For example, you don't want to accidently be 
-editing a text file in Word at the same time as you have a Python program 
-automatically using its contents.
-
-In Python, closing files involves a call to the `close()` method on the file
-object. You can check the status of a file with the `closed` property:
-
-~~~
-my_file = open("my_data_file.txt", "r")
-# do some processing
-print(my_file.closed)  # should print False
-my_file.close()
-print(my_file.closed)  # should print True
-~~~
+> What happened?
 {: .language-python}
+
+
+
+
+
+
 
 ## Reading from a File
 
