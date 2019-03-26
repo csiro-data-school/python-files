@@ -30,13 +30,6 @@ keypoints:
 
 ---
 
-Before beginning this lesson, please download the following files and store them in a 
-`data` folder within `dataschool/python`:
-
-[a_few_lines_of_text]({{ page.root }}{% link data/a_few_lines_of_text.txt %})
-
-
-
 ## Reading files
 
 Reading files in python uses `for` loops. As a refresher, here is a simple `for` loop in Python:
@@ -84,29 +77,43 @@ with open('my_file.txt') as f:
 > {: .language-python}
 {: .challenge}
 
-Try it out on a plain text file of your own. Substitute, `my_file` for the full *path* and *name* of the file you want to open, e.g. `~/mce03b/dataschool/python/script.txt`
+> ## Open a_few_lines_of_text.txt
+> Open and print to screen the contents of `a_few_lines_of_text.txt`
+>
+> Can you find a file on your computer to open and print? E.g. a .csv data file?
+> {: .language-python}
+{: .challenge}
 
-## Opening Files
+In the examples above, we used the `open()` function, which returns a **file** object. This 
+object is assigned to the name `f`.
 
-To open a file, we use the `open()` function, which returns a **file** object:
+There is nothing special about `f` or `line`, we can use any legal variable names here. This should also work:
 
 ~~~
-my_file = open("my_data_file.txt", "r")
+with open('dataschool/python/a_few_lines_of_text.txt') as fluffy:
+    for unicorn in fluffy:
+        print(unicorn)
 ~~~
 {: .language-python}
 
-Here, 
-* `my_file` is a variable name corresponding to the open file
-* `open()` is a *function* that takes two arguments
+> ## Opening Files
+>
+> `open()` is a *function* that takes two arguments
+>
+> ~~~
+> open("my_data_file.txt", "r")
+> ~~~
+> {: .language-python}
 
-The first argument, `"my_data_file.txt"` is a *string* containing the filename.
+> The first argument, `"my_data_file.txt"` is a *string* containing the filename.
 
-The second argument, `"r"`, is also a string. This is the *mode* of the open 
-file, and indicates how we want to use the file. The mode can be:
-    * `"r"` : the file will only be read (this is the default)
-    * `"w"` : only writing (an existing file with the same name will be erased)
-    * `"a"` : for appending; any data written to the file is automatically added to the end
-    * `"r+"`: both reading and writing.
+> The second argument, `"r"`, is also a string. This is the *mode* of the open 
+> file, and indicates how we want to use the file. The mode can be:
+>    * `"r"` : the file will only be read (this is the default)
+>    * `"w"` : only writing (an existing file with the same name will be erased)
+>    * `"a"` : for appending; any data written to the file is automatically added to the end
+>    * `"r+"`: both reading and writing.
+{: .callout}
 
 > ## File found?
 >
