@@ -14,6 +14,7 @@ python/data
 Download the following files to this directory:
 
 [a_few_lines_of_text.txt]({{ page.root }}/data/a_few_lines_of_text.txt) 
+
 [sample.fastq]({{ page.root }}/data/sample.fastq) 
 
 
