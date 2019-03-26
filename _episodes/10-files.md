@@ -128,13 +128,9 @@ with open('dataschool/python/a_few_lines_of_text.txt') as fluffy:
 
 
 
+## Reading line-by-line
 
-
-
-
-## Reading from a File
-
-Once we have created a file object using `open()`, we can access lines of the file
+We can also access lines of the file one at a time 
 using the `readline()` method.
 
 * `readline()` reads a single line from the file as a `string`
@@ -148,27 +144,26 @@ reached.
 > to be indicated by the string `"\n"`.
 {: .callout}
 
-> ## Open, shut them
-> 
-> Using Python:
-> 1. Open a file on your computer, and store the file object in a variable
-> 2. Use the readline() method to print the first line of your file.
-> 3. Close your file
-> 4. Use the `closed` property to check whether your file is really closed.
->
-{: .challenge}
+~~~
+with open('example.txt') as f:
+    line = f.readline()
+    while line:
+        print(line)
+        line = f.readline()
+~~~
+{: .language-python}
 
 > ## while `line`
 > Examine the following code:
 > 
 > ~~~
-> my_file = open("observation_data.csv", "r")
 > data_list = []
-> header = my_file.readline()
-> line = my_file.readline()
-> while line:
->     data_list.append(line)
+> with open("observation_data.csv", "r") as my_file:
+>     header = my_file.readline()
 >     line = my_file.readline()
+>     while line:
+>         data_list.append(line)
+>         line = my_file.readline()
 > ~~~
 > {: .language-python}
 >
@@ -211,14 +206,13 @@ reached.
 > > One possible solution is:
 > >
 > > ~~~
-> > f = open("a_few_lines_of_text.txt")
 > > count = 0  # initialise the line count
-> > line = f.readline()  # read the first line before entering the loop
-> > while line:  # readline() returns an empty string at end of file
-> >     print(count, line)
-> >     count = count + 1
-> >     line = f.readline()
-> > f.close()
+> > with open("a_few_lines_of_text.txt") as f:
+> >     line = f.readline()  # read the first line before entering the loop
+> >     while line:  # readline() returns an empty string at end of file
+> >         print(count, line)
+> >         count = count + 1
+> >         line = f.readline()
 > > ~~~
 > > {: .language-python}
 > {: .solution}
@@ -230,24 +224,18 @@ reached.
 > file, which already contains a newline character.
 {: .callout }
 
-`file` objects are also *iterable*, meaning we can iterate over all the lines, just like we can iterate through elements of a `list` object, or characters in a `string` object. This is memory efficient, fast, and leads to simple code:
-~~~
-for line in f:
-    print(line)
-~~~
-{: .language-python}
+
 
 > ## Using file iteration
 > Update your previous program to use the file iteration approach. You should
 > see the same output.
 > > ## Solution
 > > ~~~
-> > f = open("a_few_lines_of_text.txt")
 > > count = 0  # initialise the line count
-> > for line in f:
-> >     print(count, line)
-> >     count = count + 1
-> > f.close()
+> > with open("a_few_lines_of_text.txt") as f:
+> >     for line in f:
+> >         print(count, line)
+> >         count = count + 1
 > > ~~~
 > > {: .language-python}
 > {: .solution}
@@ -272,10 +260,9 @@ for index, value in enumerate(my_list):
 > see the same output.
 > > ## Solution
 > > ~~~
-> > f = open("a_few_lines_of_text.txt")
-> > for count, line in enumerate(f):
-> >     print(count, line)
-> > f.close()
+> > with open("a_few_lines_of_text.txt") as f:
+> >     for count, line in enumerate(f):
+> >         print(count, line)
 > > ~~~
 > > {: .language-python}
 > {: .solution}
@@ -286,9 +273,8 @@ for index, value in enumerate(my_list):
 Text can be written to a text file that has been opened for writing with the
 `write()` method on the file object:
 ~~~
-f = open("my_text.txt", "w")
-f.write("This is a line of text")
-f.close()
+with open("my_text.txt", "w") as f:
+    f.write("This is a line of text")
 ~~~
 {: .language-python}
 
@@ -296,20 +282,18 @@ f.close()
 > 
 > Use Python to make a new file and save some text:
 > ~~~
-> f = open("new_file", "w")
-> f.write("Some initial text")
-> f.write("A second line of text")
-> f.close()
+> with open("new_file", "w") as f:
+>     f.write("Some initial text")
+>     f.write("A second line of text")
 > ~~~
 > Now, open your new file using your favourite text editor. 
 > Is the content what you expect? If not, how would you fix it?
 >
 > Open your file again and try this fix:
 > ~~~
-> f = open("new_file", "w")
-> f.write("Line number one\n")
-> f.write("Line number two\n")
-> f.close()
+> with open("new_file", "w") as f:
+>     f.write("Line number one\n")
+>     f.write("Line number two\n")
 > ~~~
 > {: .language-python}
 > Open it again with your favourite text editor. What happened to your original text?
@@ -321,35 +305,8 @@ f.close()
 > using the string `\n`.
 {: .callout}
 
-## File Opening Recipe: Context Managers
 
-It is 'best practice' to always open files using the [`with`][with-statement] statement.
 
-`with` automatically closes your file as soon as your code is finished with it. Just like 
-the `for` and `if` statements we have already encountered, `with` ends with a colon `:` 
-character, and all the code that belongs to it is indented. For example:
-
-~~~
-with open("a_file.txt", "w") as f:
-    for line in f:
-        print(line)
-        
-print(f.closed)
-~~~
-{: .language-python}
-
-In addition to being simpler, this approach is also safer. The file will
-always be closed when the indented code block is finished,
-even when unexpected exceptions or other errors occur.
-
-This leads us to a robust and useful pattern for sequentially processing every
-line in a text file:
-~~~
-with open("a_file.txt", "w") as f:
-    for line in f:
-        # process the line
-~~~
-{: .language-python}
 
 ## Putting it all together
 > ## Reading and writing files at the same time
