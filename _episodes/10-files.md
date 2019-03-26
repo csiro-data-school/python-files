@@ -123,6 +123,7 @@ with open('dataschool/python/a_few_lines_of_text.txt') as fluffy:
 >     for line in f:
 >         print(line)
 > ~~~
+> {: .language-python}
 > What happened?
 {: .language-python}
 
