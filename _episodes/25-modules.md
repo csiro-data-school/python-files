@@ -189,6 +189,56 @@ out what it is?
 
 ### `from math import *`
 
+
+> ## Exploring `from math import *`
+>
+> **Make sure to start a new interpreter session, or this example won't work.**
+>
+> The [built-in `dir()` function][python-dir] when called without arguments
+> lists the names (variables, functions etc) defined in the local scope. This
+> exercise uses `dir()` to explore the relative effect of different import
+> statements.
+> 
+> In a new interactive Python session, enter the following commands one at
+> a time in the order shown. The output from `dir()` will show the defined names
+> at each point.
+> 
+> What items get added to the end of the `dir()` results at each stage?
+> ~~~
+> dir()
+> ~~~
+> {: .language-python}
+> 
+> This first call to `dir()` shows a few standard items that should be ignored.
+> Remember, we are looking for the changes once we start importing from `math`.
+> 
+> ~~~
+> import math
+> dir()
+> ~~~
+> {: .language-python}
+> 
+> ~~~
+> from math import pi
+> dir()
+> ~~~
+> {: .language-python}
+> 
+> ~~~
+> from math import *
+> dir()
+> ~~~
+> {: .language-python}
+> > ## Solution
+> > - `import math`: The only new addition to local symbols is `math`.
+> >     - This is the namespace object used to access the contents of the math
+> >       module.
+> > - `from math import pi`: Adds just one name - `pi`.
+> > - `from math import *`: Adds everything from `math`. Imagine the effect if
+> >   you did this for a lot of modules?
+> {: .solution}
+{: .challenge}
+
 The code `from math import *` looks very similar to `from math import pi`, but
 the effect on your code is huge. The `*` is a wildcard that matches everything
 in the math module. The effect is to import everything **without** the `math.`
@@ -205,5 +255,6 @@ risks.
 {% include links.md %}
 
 [python-documentation]: https://docs.python.org/3/
+[python-dir]: https://docs.python.org/3/library/functions.html#dir
 [python-modules]: https://docs.python.org/3/tutorial/modules.html
 [python-standard-modules]: https://docs.python.org/3/tutorial/modules.html#standard-modules
