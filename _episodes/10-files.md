@@ -30,77 +30,108 @@ keypoints:
 
 ---
 
-## Opening Files
+## Reading files
 
-To open a file, we use the `open()` function, which returns a **file** object:
+Reading files in python uses `for` loops. As a refresher, here is a simple `for` loop in Python:
 
 ~~~
-my_file = open("my_data_file.txt", "r")
+for letter in 'ABCDEFGHIJ':
+    print(letter)
 ~~~
 {: .language-python}
 
-Here, 
-* `my_file` is a variable name corresponding to the open file
-* `open()` is a *function* that takes two arguments
+> ## For loop practice
+> Write a `for` loop that generates this image:
+>
+> .
+>
+> ..
+>
+> ...
+>
+> ....
+>
+> .....
+{: .challenge}
 
-The first argument, `"my_data_file.txt"` is a *string* containing the filename.
+Working with files is a two-step process. We first need to 'open' the file. Then, we can 'read' it line by line. 
+There is some special syntax for opening files in Python. Behind the scenes, this special sytnax makes sure that the file is
+closed again when we are done with it, and that the working memory it occupies becomes freed up for use again. This is the 
+general recipe for reading a file:
 
-The second argument, `"r"`, is also a string. This is the *mode* of the open 
-file, and indicates how we want to use the file. The mode can be:
-    * `"r"` : the file will only be read (this is the default)
-    * `"w"` : only writing (an existing file with the same name will be erased)
-    * `"a"` : for appending; any data written to the file is automatically added to the end
-    * `"r+"`: both reading and writing.
+~~~
+with open('my_file.txt') as f:
+    for line in f:
+        print(line)
+~~~
+{: .language-python}
+
+
+> ## Open a file
+> Fill in the blanks below to open and print the contents of a hypothetical file `data.csv`:
+> ~~~
+> with open('data.csv') as f:
+>     for line in ___:
+>         print(____)
+> ~~~
+> {: .language-python}
+{: .challenge}
+
+> ## Open a_few_lines_of_text.txt
+> Open and print to screen the contents of `a_few_lines_of_text.txt`
+>
+> Can you find a file on your computer to open and print? E.g. a .csv data file?
+> {: .language-python}
+{: .challenge}
+
+In the examples above, we used the `open()` function, which returns a **file** object. This 
+object is assigned to the name `f`.
+
+There is nothing special about `f` or `line`, we can use any legal variable names here. This should also work:
+
+~~~
+with open('dataschool/python/a_few_lines_of_text.txt') as fluffy:
+    for unicorn in fluffy:
+        print(unicorn)
+~~~
+{: .language-python}
+
+> ## Opening Files
+>
+> `open()` is a *function* that takes two arguments
+>
+> ~~~
+> open("my_data_file.txt", "r")
+> ~~~
+> {: .language-python}
+
+> The first argument, `"my_data_file.txt"` is a *string* containing the filename.
+
+> The second argument, `"r"`, is also a string. This is the *mode* of the open 
+> file, and indicates how we want to use the file. The mode can be:
+>    * `"r"` : the file will only be read (this is the default)
+>    * `"w"` : only writing (an existing file with the same name will be erased)
+>    * `"a"` : for appending; any data written to the file is automatically added to the end
+>    * `"r+"`: both reading and writing.
+{: .callout}
 
 > ## File found?
 >
-> Try and open one of the text files we downloaded:
+> Try and open a non-existent text file:
 > ~~~
-> silly_quotes = open("monty_python.txt")
-> ~~~
-> {: .language-python}
-> What is the `type` of `silly_quotes`?
->
-> Now try and open a file that isn't there:
-> ~~~
-> missing = open("flying_circus.txt")
+> with open('flying_circus.txt') as f:
+>     for line in f:
+>         print(line)
 > ~~~
 > {: .language-python}
-> 
-> What happended? What is the type of `missing`?
-{: .challenge}
-
-> ## What are some reasons that opening a file might fail?
-> Try to think of some reasons that opening a file might fail. How common are
-> they? Are there any particular situations that your program needs to handle?
->
-> Often no special handling apart from displaying an error message is required,
-> but thinking about these questions can help us write more robust code.
-{: .discussion}
-
-## Closing Files
-
-Files need to be closed when they are no longer needed. One reason is that
-computers can 'lock' files while they are open, to prevent unexpected
-changes while the file is in use. For example, you don't want to accidently be 
-editing a text file in Word at the same time as you have a Python program 
-automatically using its contents.
-
-In Python, closing files involves a call to the `close()` method on the file
-object. You can check the status of a file with the `closed` property:
-
-~~~
-my_file = open("my_data_file.txt", "r")
-# do some processing
-print(my_file.closed)  # should print False
-my_file.close()
-print(my_file.closed)  # should print True
-~~~
+> What happened?
 {: .language-python}
 
-## Reading from a File
 
-Once we have created a file object using `open()`, we can access lines of the file
+
+## Reading line-by-line
+
+We can also access lines of the file one at a time 
 using the `readline()` method.
 
 * `readline()` reads a single line from the file as a `string`
@@ -114,27 +145,26 @@ reached.
 > to be indicated by the string `"\n"`.
 {: .callout}
 
-> ## Open, shut them
-> 
-> Using Python:
-> 1. Open a file on your computer, and store the file object in a variable
-> 2. Use the readline() method to print the first line of your file.
-> 3. Close your file
-> 4. Use the `closed` property to check whether your file is really closed.
->
-{: .challenge}
+~~~
+with open('example.txt') as f:
+    line = f.readline()
+    while line:
+        print(line)
+        line = f.readline()
+~~~
+{: .language-python}
 
 > ## while `line`
 > Examine the following code:
 > 
 > ~~~
-> my_file = open("observation_data.csv", "r")
 > data_list = []
-> header = my_file.readline()
-> line = my_file.readline()
-> while line:
->     data_list.append(line)
+> with open("observation_data.csv", "r") as my_file:
+>     header = my_file.readline()
 >     line = my_file.readline()
+>     while line:
+>         data_list.append(line)
+>         line = my_file.readline()
 > ~~~
 > {: .language-python}
 >
@@ -177,14 +207,13 @@ reached.
 > > One possible solution is:
 > >
 > > ~~~
-> > f = open("a_few_lines_of_text.txt")
 > > count = 0  # initialise the line count
-> > line = f.readline()  # read the first line before entering the loop
-> > while line:  # readline() returns an empty string at end of file
-> >     print(count, line)
-> >     count = count + 1
-> >     line = f.readline()
-> > f.close()
+> > with open("a_few_lines_of_text.txt") as f:
+> >     line = f.readline()  # read the first line before entering the loop
+> >     while line:  # readline() returns an empty string at end of file
+> >         print(count, line)
+> >         count = count + 1
+> >         line = f.readline()
 > > ~~~
 > > {: .language-python}
 > {: .solution}
@@ -196,24 +225,18 @@ reached.
 > file, which already contains a newline character.
 {: .callout }
 
-`file` objects are also *iterable*, meaning we can iterate over all the lines, just like we can iterate through elements of a `list` object, or characters in a `string` object. This is memory efficient, fast, and leads to simple code:
-~~~
-for line in f:
-    print(line)
-~~~
-{: .language-python}
+
 
 > ## Using file iteration
 > Update your previous program to use the file iteration approach. You should
 > see the same output.
 > > ## Solution
 > > ~~~
-> > f = open("a_few_lines_of_text.txt")
 > > count = 0  # initialise the line count
-> > for line in f:
-> >     print(count, line)
-> >     count = count + 1
-> > f.close()
+> > with open("a_few_lines_of_text.txt") as f:
+> >     for line in f:
+> >         print(count, line)
+> >         count = count + 1
 > > ~~~
 > > {: .language-python}
 > {: .solution}
@@ -238,10 +261,9 @@ for index, value in enumerate(my_list):
 > see the same output.
 > > ## Solution
 > > ~~~
-> > f = open("a_few_lines_of_text.txt")
-> > for count, line in enumerate(f):
-> >     print(count, line)
-> > f.close()
+> > with open("a_few_lines_of_text.txt") as f:
+> >     for count, line in enumerate(f):
+> >         print(count, line)
 > > ~~~
 > > {: .language-python}
 > {: .solution}
@@ -252,9 +274,8 @@ for index, value in enumerate(my_list):
 Text can be written to a text file that has been opened for writing with the
 `write()` method on the file object:
 ~~~
-f = open("my_text.txt", "w")
-f.write("This is a line of text")
-f.close()
+with open("my_text.txt", "w") as f:
+    f.write("This is a line of text")
 ~~~
 {: .language-python}
 
@@ -262,20 +283,18 @@ f.close()
 > 
 > Use Python to make a new file and save some text:
 > ~~~
-> f = open("new_file", "w")
-> f.write("Some initial text")
-> f.write("A second line of text")
-> f.close()
+> with open("new_file", "w") as f:
+>     f.write("Some initial text")
+>     f.write("A second line of text")
 > ~~~
 > Now, open your new file using your favourite text editor. 
 > Is the content what you expect? If not, how would you fix it?
 >
 > Open your file again and try this fix:
 > ~~~
-> f = open("new_file", "w")
-> f.write("Line number one\n")
-> f.write("Line number two\n")
-> f.close()
+> with open("new_file", "w") as f:
+>     f.write("Line number one\n")
+>     f.write("Line number two\n")
 > ~~~
 > {: .language-python}
 > Open it again with your favourite text editor. What happened to your original text?
@@ -287,35 +306,8 @@ f.close()
 > using the string `\n`.
 {: .callout}
 
-## File Opening Recipe: Context Managers
 
-It is 'best practice' to always open files using the [`with`][with-statement] statement.
 
-`with` automatically closes your file as soon as your code is finished with it. Just like 
-the `for` and `if` statements we have already encountered, `with` ends with a colon `:` 
-character, and all the code that belongs to it is indented. For example:
-
-~~~
-with open("a_file.txt", "w") as f:
-    for line in f:
-        print(line)
-        
-print(f.closed)
-~~~
-{: .language-python}
-
-In addition to being simpler, this approach is also safer. The file will
-always be closed when the indented code block is finished,
-even when unexpected exceptions or other errors occur.
-
-This leads us to a robust and useful pattern for sequentially processing every
-line in a text file:
-~~~
-with open("a_file.txt", "w") as f:
-    for line in f:
-        # process the line
-~~~
-{: .language-python}
 
 ## Putting it all together
 > ## Reading and writing files at the same time

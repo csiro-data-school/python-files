@@ -2,6 +2,22 @@
 title: Setup
 ---
 
+## Sample Data
+
+This lesson uses an example fastq file. Inside your dataschool folder, please make yourself the following directory structure:
+
+~~~
+python/data
+~~~
+{: .language-bash}
+
+Download the following files to this directory:
+
+[a_few_lines_of_text.txt]({{ page.root }}/data/a_few_lines_of_text.txt) 
+
+[sample.fastq]({{ page.root }}/data/sample.fastq) 
+
+
 ## Installing Anaconda
 
 ### CSIRO-specific instructions
