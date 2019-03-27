@@ -133,7 +133,7 @@ We know lines are read in as strings, which means we can perform any string oper
 > physical location of the DNA on the 'flow cell'. This is 
 > of the form `flow-cell ID:lane:tile:x-coord:y-coord`
 > 
-> > # read metadata
+> > ## read metadata
 > > why might it be important to record the phyical location 
 > > of a sequence read on a flow cell?
 > {: .discussion}
