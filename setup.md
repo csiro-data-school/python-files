@@ -1,6 +1,16 @@
 ---
 title: Setup
 ---
+## Add anaconda to your gitbash $PATH
+
+1. Open git bash
+2. Run the following command:
+`export PATH=$PATH:~/AppData/Local/Continuum/anaconda3/Scripts`
+
+3. Run the following command:
+`source activate`
+
+Now you are good to go!
 
 ## Sample Data
 
