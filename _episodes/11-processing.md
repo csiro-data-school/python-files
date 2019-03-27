@@ -286,4 +286,9 @@ to do something with each filename in turn.
 > file 2. Hint: you will need to use the f.readline() method, and a `while` loop. 
 {: .challenge}
 
+> ## File formats
+> Do you have data that doesn't fit into a standard rows and columns format? Is it machine generated? 
+> Describe it to your classmates. Could you process it using the tools in this lesson?
+{: .discussion}
+
 {% include links.md %}
