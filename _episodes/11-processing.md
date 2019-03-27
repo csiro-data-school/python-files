@@ -28,6 +28,7 @@ save it into your `data` directory.
 > >         print(line)
 > > ~~~
 > > {: .language-python}
+> {: .solution}
 {: .challenge}
 
 > ## fastq format
@@ -77,7 +78,7 @@ save it into your `data` directory.
 >
 > > ## Hint
 > > You could use an `if` statement.
-> 
+> {: .solution}
 >
 > > ## Solution
 > > ~~~
@@ -87,4 +88,5 @@ save it into your `data` directory.
 > >             print(line)
 > > ~~~
 > > {: .language-python}
+> {: .solution}
 {: .challenge}
