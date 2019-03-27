@@ -233,4 +233,57 @@ with open('data/sample.fastq') as in_file, open('data/headers.txt', 'w') as out_
 > tab separated. Use the string `join()` method in your solution.
 {: .challenge}
 
-    
+## Listing files and regular expressions
+
+We now know how to work with and process individual files. However, what if we have 
+many similar files, that we want to do the same (automated) task on? 
+
+To practice this, please download and extract the following folder within your data folder:
+[paired_fastq]({{ page.root }}/data/paired.zip)
+
+We can generate a list of files in Python using a module with an unpleasant name:
+
+~~~
+import glob
+~~~
+{: .language-python}
+
+The `glob` module contains a function, also called `glob`,
+that finds files and directories whose names match a pattern, i.e. regular expression.
+We provide those patterns as strings:
+the character `*` matches zero or more characters,
+while `?` matches any one character.
+
+We can use this to get the names of all the fastq files in our data directory:
+
+~~~
+print(glob.glob('data/paired/*.fastq'))
+~~~
+{: .language-python}
+
+As this example shows,
+`glob.glob`'s result is a list of file and directory paths in arbitrary order. This means we can loop over it
+to do something with each filename in turn.
+
+> ## File order
+> How would you generate an ordered list of files? Try it out.
+{: .challenge}
+
+> ## Challenge exercises
+> 
+> You will notice that in our 'data/paired' directory, we have files with very similar names, that differ only
+> in `_1` or `_2`. The reads in these files 'belong' together. In fact, they originate from the same fragment of DNA (short 
+> DNA fragments are read from both 'ends', reads from one end are stored in the `_1` file and reads from the second 
+> end are stored in the `_2` file.
+> 1. Write a python program that checks if two fastq files (from read 1 and read 2) have the same number of lines.
+> 2. Turn the program in (1) into a function. 
+> 3. Write a for loop to check that *all* the pairs of fastq files have the same number of lines. Hint: use your function!
+{: .challenge}
+
+> ## Extension exercise
+> Write a Python program that processes two separate paired end read files and turns them into **one** *interleaved* file, 
+> where the four lines of the read from file 1 are directly followed by the four lines of the read from 
+> file 2. Hint: you will need to use the f.readline() method, and a `while` loop. 
+{: .challenge}
+
+{% include links.md %}
