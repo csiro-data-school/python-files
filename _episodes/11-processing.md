@@ -239,7 +239,7 @@ We now know how to work with and process individual files. However, what if we h
 many similar files, that we want to do the same (automated) task on? 
 
 To practice this, please download and extract the following folder within your data folder:
-[paired_fastq]({{ page.root }}/data/paired.zip)
+[paired_fastq]({{ page.root }}/data/fastq.zip)
 
 We can generate a list of files in Python using a module with an unpleasant name:
 
@@ -257,7 +257,7 @@ while `?` matches any one character.
 We can use this to get the names of all the fastq files in our data directory:
 
 ~~~
-print(glob.glob('data/paired/*.fastq'))
+print(glob.glob('data/fastq/*.fastq'))
 ~~~
 {: .language-python}
 
@@ -271,7 +271,7 @@ to do something with each filename in turn.
 
 > ## Challenge exercises
 > 
-> You will notice that in our 'data/paired' directory, we have files with very similar names, that differ only
+> You will notice that in our 'data/fastq' directory, we have files with very similar names, that differ only
 > in `_1` or `_2`. The reads in these files 'belong' together. In fact, they originate from the same fragment of DNA (short 
 > DNA fragments are read from both 'ends', reads from one end are stored in the `_1` file and reads from the second 
 > end are stored in the `_2` file.
