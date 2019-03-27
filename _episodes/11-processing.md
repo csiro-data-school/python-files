@@ -76,7 +76,7 @@ save it into your `data` directory.
 > ~~~
 > with open('data/sample.fastq') as f:
 >     for line in f:
->         print(f)
+>         print(line)
 > ~~~
 > {: .language-python}
 > 
