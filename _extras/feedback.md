@@ -51,6 +51,46 @@ could go through some of the content a little quicker, like namespaces/conflicts
 
 this information is hard but we all need it
 
+good explanations
+
 ### **DOWN**
 
-How od I remember all of this later? And when do we use this?
+How do I remember all of this later? And when do we use this?
+
+'#' comment is so similar to R that it could have been presented concurrently with R
+
+a bit slow in parts
+
+## IO
+
+### **UP**
+
+All good!
+
+Clear explanation, good examples
+
+Good examples and explanations
+
+Read/write Data
+
+Explanations of what to do are good. The file path changes were a good demonstration of what needs doing. 
+
+Write files session was very clear and well worked through.
+
+Interesting subjects and very useful
+
+the reading in of a file, a new experience in python
+
+### **DOWN**
+
+-
+None
+
+None
+
+If only we had more time for exercises. I know time constraints. 
+
+Afternoon session. My brain was weakening. Thinking slowly. 
+
+had the for loop for the . .. ... ... exercise, new there should have been something I could automate it with, but could not
+get it to happen.
