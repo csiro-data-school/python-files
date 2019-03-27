@@ -45,3 +45,12 @@ could go through some of the content a little quicker, like namespaces/conflicts
 
 1.5 h
 
+## Module exercise
+
+### **UP**
+
+this information is hard but we all need it
+
+### **DOWN**
+
+How od I remember all of this later? And when do we use this?
