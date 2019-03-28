@@ -6,7 +6,7 @@ This file contains feedback collated during teaching for each session.
 
 # 2019-03-27
 
-## Modules
+## Modules (Daniel)
 
 ### **UP**
 Daniel good presenter, speed OK. Also useful asides as we went along.
@@ -45,7 +45,7 @@ could go through some of the content a little quicker, like namespaces/conflicts
 
 1.5 h
 
-## Module exercise
+## Module exercise (Daniel)
 
 ### **UP**
 
@@ -61,7 +61,7 @@ How do I remember all of this later? And when do we use this?
 
 a bit slow in parts
 
-## IO
+## IO (Kerensa)
 
 ### **UP**
 
@@ -92,5 +92,39 @@ If only we had more time for exercises. I know time constraints.
 
 Afternoon session. My brain was weakening. Thinking slowly. 
 
-had the for loop for the . .. ... ... exercise, new there should have been something I could automate it with, but could not
+had the for loop for the . .. ... ... exercise, knew there should have been something I could automate it with, but could not
 get it to happen.
+
+# 2019-03-28
+
+## File processing (Kerensa)
+
+### **UP**
+
+Useful content that we could apply to our data
+
+Well organised, built on knowledge in an understandable way
+
+Find Python a bit hard to get on ... but it's just me!
+
+Good time management, clear logic and explanation
+
+Good useful (in future) content
+
+Explanations are good
+
+Honestly thing this was a good session,
+
+### **DOWN**
+
+Confused at times, but it may have been me being slow.
+
+Coffe break too late (11am)
+
+None. 
+
+Just my typing errors.
+
+I could not make them all run.
+
+Having heaps of trouble with long exercises where there is something small, technical "why are all my outputs empty for example" and just fall behind in content. I think I might be saying it is very difficult on the webex when there are small glitches
