@@ -42,31 +42,31 @@ objectives:
 
 ### Need an Example of a Paper for without reference to either
 
->## Part 1 - Setup of Git Repository and Python Program
+> ## Part 1 - Setup of Git Repository and Python Program
 >
->Open `Git Bash` and move to the directory where you want to work with your new Python project. <br/>
->Now we need to initiate our new `Git Repository` so that we have our work under version control!
+> Open `Git Bash` and move to the directory where you want to work with your new Python project. <br/>
+> Now we need to initiate our new `Git Repository` so that we have our work under version control!
 >
->>## CHALLENGE: Initiate your git repository
->>>## Solution
->>>~~~
->>>git init python_prac
->>>~~~
->>>{: .language-bash}
->>{: .solution}
+> > ## CHALLENGE: Initiate your git repository
+> > > ## Solution
+> > > ~~~
+> > > git init python_prac
+> > > ~~~
+> > > {: .language-bash}
+> > {: .solution}
 >
 > Next move to your new folder `python_prac` and set up an appropriate sub-folder structure for this project. 
 > What folders will you need?
-
+>
 > Create your Python program by opening your chosen text <br/> 
 > editor and saving it to the appropriate place with an appropriate name. <br/>
 > e.g. using VIM in `Git Bash`. Write a comment `#` at the top of your program stating what it does and then save it.
 >
->~~~
+> ~~~
 > cd scripts
 > vim ref_finder.py
->~~~
->{: .language-bash}
+> ~~~
+> {: .language-bash}
 >
 > Run `git status` to see if our new file is under version control.
 >
@@ -88,15 +88,16 @@ objectives:
 > ~~~
 > {: .output}
 >
->>## CHALLENGE: Add and commit your python program so that is it under version control.
->>>## Solution
->>>~~~
->>>git add scripts/ref_finder.py
->>>git commit -m "inital commit"
->>>~~~
->>>{: .language-bash}
->>{: .solution}
-{: .challenge}
+> > ## CHALLENGE: Add and commit your python program so that is it under version control.
+> > > ## Solution
+> > > ~~~
+> > > git add scripts/ref_finder.py
+> > > git commit -m "inital commit"
+> > > ~~~
+> > > {: .language-bash}
+> > {: .solution}
+> {: .challenge}
+{: .callout}
 
 ## Now we are ready to start coding!!
 
