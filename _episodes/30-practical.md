@@ -44,7 +44,6 @@ keypoints:
 **XML**
 * https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1004140&type=manuscript
 
-### Need an Example of a Paper for without reference to either
 
 > ## Part 1 - Setup of Git Repository and Python Program
 >
@@ -59,8 +58,11 @@ keypoints:
 > > > {: .language-bash}
 > > {: .solution}
 >
+>
 > Next move to your new folder `python_prac` and set up an appropriate sub-folder structure for this project. 
 > What folders will you need?
+>
+> Download the XML versions of the manuscript and save them in the appropriate folder.
 >
 > Create your Python program by opening your chosen text <br/> 
 > editor and saving it to the appropriate place with an appropriate name. <br/>
@@ -103,87 +105,92 @@ keypoints:
 > {: .challenge}
 {: .callout}
 
+
+
 ## Now we are ready to start coding!!
 
->## Part 2 - Structure of Python Program
->>## CHALLENGE: How do we Start? Write down in words what you want your program to do.
->>>## Hint
->>>1. Read in the words in a chosen text document (text file - XML) line-by-line.
->>>2. Search each line for the words "R" and/or "Python".
->>>3. Keep a running tally of the number of times the words "R" and/or "Python" occur.
->>>4. Print out the result.
->>>5. Save the result to a text document.
->>{: .solution}
->{: .challenge}
+## Part 2 - Structure of Python Program
+
+> ## CHALLENGE: How do we Start? Write down in words what you want your program to do.
+> > ## Hint
+> > 1. Read in the words in a chosen text document (text file - XML) line-by-line.
+> > 2. Search each line for the words "R" and/or "Python".
+> > 3. Keep a running tally of the number of times the words "R" and/or "Python" occur.
+> > 4. Print out the result.
+> > 5. Save the result to a text document.
+> {: .solution}
+{: .challenge}
 
 Let's start by getting our code to work interactively in Jupyter first.
 
->>## CHALLENGE: Open a Jupyter Notebook and write code to read a text file line by line and print each line.
->>>## Solution
->>>~~~
->>>file = 'absolute file location'
->>>with open(file, "r") as f:
->>>    for line in f:
->>>        print(line)
->>>~~~
->>>{: .language-python}
->>{: .solution}
->{: .challenge}
+> ## CHALLENGE: Open a Jupyter Notebook and write code to read a text file line by line and print each line.
+> > ## Solution
+> > ~~~
+> > file = 'file location'
+> > with open(file, "r") as f:
+> >    for line in f:
+> >        print(line)
+> > ~~~
+> > {: .language-python}
+> {: .solution}
+{: .challenge}
 
->> ## CHALLENGE: Copy your Jupyter Notebook code into a new cell and integrate a string search for 'Python' and print the number of counts.
->>> ## Solution
->>> ~~~
->>> file = 'absolute file location'
->>> count = 0
->>> with open(file, "r") as f:
->>>     for line in f:
->>>         count += line.count(' Python ')
->>>         print("Python was found", count, "times")
->>> ~~~
->>> {: .language-python}
->> {: .solution}
-> {: .challenge}
+> ## CHALLENGE: Copy your Jupyter Notebook code into a new cell and 
+> integrate a string search for 'Python' and print the number of counts.
+> > ## Solution
+> > ~~~
+> > file = 'file location'
+> > count = 0
+> > with open(file, "r") as f:
+> >     for line in f:
+> >         count += line.count(' Python ')
+> >         print("Python was found", count, "times")
+> > ~~~
+> > {: .language-python}
+> {: .solution}
+{: .challenge}
 
->> ## CHALLENGE: In a new cell in your Jupyter Notebook, turn your script into a reusable function.
->>> ## Solution
->>> ~~~
->>> def ref_finder(file_location):
->>>     """counts occurences of the word 'Python' in a text file"""
->>>     count = 0
->>>     with open(file_location, "r") as f:
->>>         for line in f:
->>>             count += line.count(' Python ')
->>>         print("Python was found", count, "times")
->>>         return(count)
->>> ~~~
->>> {: .language-python}
->> {: .solution}
-> {: .challenge}
+> ## CHALLENGE: In a new cell in your Jupyter Notebook, turn your script into a reusable function.
+> > ## Solution
+> > ~~~
+> > def ref_finder(file_location):
+> >     """counts occurences of the word 'Python' in a text file"""
+> >     count = 0
+> >     with open(file_location, "r") as f:
+> >         for line in f:
+> >             count += line.count(' Python ')
+> >         print("Python was found", count, "times")
+> >         return(count)
+> > ~~~
+> > {: .language-python}
+> {: .solution}
+{: .challenge}
 
->>## CHALLENGE: Copy your function into your ref_finder.py program and integrate Argparse so that your program can accept any file from the command line.
->>>## Solution
->>>~~~
->>>import argparse
->>>
->>>def ref_finder(file_location):
->>>    """counts occurences of the word 'Python' in a text file"""
->>>    count = 0
->>>    with open(file_location, "r") as f:
->>>        for line in f:
->>>                count += line.count(' Python ')
->>>        print("Python was found", count, "times")
->>>        return(count)
->>>
->>>parser = argparse.ArgumentParser()
->>>parser.add_argument("file_location")
->>>args = parser.parse_args()
->>>ref_finder(args.file_location)
->>>~~~
->>>{: .language-python}
->>{: .solution}
->{: .challenge}
+> ## CHALLENGE: Copy your function into your ref_finder.py program and integrate Argparse 
+> so that your program can accept any file from the command line.
+>>## Solution
+>>~~~
+>>import argparse
+>>
+>>def ref_finder(file_location):
+>>    """counts occurences of the word 'Python' in a text file"""
+>>    count = 0
+>>    with open(file_location, "r") as f:
+>>        for line in f:
+>>                count += line.count(' Python ')
+>>        print("Python was found", count, "times")
+>>        return(count)
+>>
+>>parser = argparse.ArgumentParser()
+>>parser.add_argument("file_location")
+>>args = parser.parse_args()
+>>ref_finder(args.file_location)
+>>~~~
+>>{: .language-python}
+>{: .solution}
+{: .challenge}
 
-> ## CHALLENGE: Update your ref_finder.py program to include optional arguments so you can search for references to 'R' or 'Python.
+> ## CHALLENGE: Update your ref_finder.py program to include optional arguments so you can search for references to 'R' or 'Python'.
 >> ## Solution
 >> ~~~
 >> import argparse
@@ -247,8 +254,11 @@ Let's start by getting our code to work interactively in Jupyter first.
 {: .challenge}
 
 > ## Super challenge
-> Update your program to use the structure of XML so that you only count occurences of 'R' or 'Python' in the **reference** section of the manuscript.
+> Update your program to use the structure of XML so that you only count occurences of 'R' or 'Python' in 
+> the **reference** section of the manuscript.
+>
 > Is there a Python module that can help?
+{: .challenge}
 
 > ## Yet another challenge
 > Run your program on a collection of manuscripts (can you find an XML manuscript repository?) tabulate your results. 
