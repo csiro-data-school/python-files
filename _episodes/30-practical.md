@@ -18,7 +18,7 @@ keypoints:
 * The challenge is to write a command line Python progam using Argparse (under version control) that can:
 	* Open a plain text file of a research article.
 	* Search the article for references to `R` and/or `Python`.
-		* *bonus: search for the versions of `R` or `Python`*
+		* <i>bonus: search for the versions of `R` or `Python`<i\>
 	* Return the number of times the article refers to `R` and/or `Python`.
 	* Choose whether or not to save the output and choose the output file name.
 
