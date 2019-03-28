@@ -209,7 +209,7 @@ Chaining `open` functions after a `with` statement works:
 ~~~
 with open('data/sample.fastq') as in_file, open('data/headers.txt', 'w') as out_file:
     for line in in_file:
-        if line[0] == '@' and len(line[0]) > 36:
+        if line[0] == '@' and len(line) > 36:
             out_file.write(line)
 ~~~
 {: .language-python}
